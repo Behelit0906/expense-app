@@ -1,0 +1,21 @@
+{
+    "name": "luis/expense-app",
+    "description": "Expense tracking application",
+    "type": "project",
+    "require": {
+        "bramus/router": "dev-master"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Luis Salcedo",
+            "email": "luis.salcedo0906@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
