@@ -1,6 +1,4 @@
-<?php
-    namespace app\Config;
-
+<?php 
     define('HOST','localhost');
     define('DBNAME','expenses');
     define('USER','root');
