@@ -4,51 +4,33 @@
     use PDO;
     use PDOException;
 
-    class User extends Model{
+    class Category extends Model{
 
         public $id;
         public $name;
-        public $email;
-        public $password;
-        public $rol;
-        public $photo;
-        public $budget;
+        public $color;
 
-        public function __construct(){
+        public function __construct()
+        {
             parent::__construct();
             $this->id = null;
             $this->name = '';
-            $this->email = '';
-            $this->password = '';
-            $this->rol = '';
-            $this->photo = '';
-            $this->budget = null; 
+            $this->color = '';
         }
-        
-        
+
+
         public function fill (array $data){
             $this->id = $data['id'];
             $this->name = $data['name'];
-            $this->email = $data['email'];
-            $this->password = $data['password'];
-            $this->rol = $data['rol'];
-            $this->photo = $data['photo'];
-            $this->budget = $data['budget'];
+            $this->color = $data['color'];
         }
 
         public function store (){
             try{
-                $query = $this->pdo->prepare('INSERT INTO users 
-                (name, email, password, rol, photo, budget) 
-                VALUES (?,?,?,?,?,?)');
-
+                $query = $this->pdo->prepare('INSERT INTO categories (name, color) VALUES (?,?)');
                 $query->execute([
                     $this->name,
-                    $this->email,
-                    $this->password,
-                    $this->rol,
-                    $this->photo,
-                    $this->budget
+                    $this->color
                 ]);
 
                 return $query;
@@ -60,20 +42,21 @@
         }
 
         public function get ($id){
-            try{
-                $query = $this->pdo->prepare('SELECT * FROM users WHERE id = ?');
-                $query->execute([$id]);
+            try {
+                $query = $this->pdo->prepare('SELECT * FROM categories WHERE id = ?');
+                $query->execute([$this->id]);
 
                 if($query->rowCount() > 0){
                     $query = $query->fetch(PDO::FETCH_ASSOC);
                     $this->fill($query);
-                    
+
                     return $this;
                 }
 
                 return false;
-            }
-            catch(PDOException $e){
+
+            } 
+            catch (PDOException $e) {
                 throw $e;
             }
         }
@@ -81,16 +64,10 @@
 
         public function update (){
             try{
-                $query = $this->pdo->prepare('UPDATE users SET 
-                name=?, email=?,password=?,rol=?, photo=?,budget=?');
-
+                $query = $this->pdo->prepare('UPDATE categories SET name=?,color=?');
                 $query->execute([
                     $this->name,
-                    $this->email,
-                    $this->password,
-                    $this->rol,
-                    $this->photo,
-                    $this->budget
+                    $this->color
                 ]);
 
                 return $query;
@@ -104,7 +81,7 @@
 
         public function get_expenses (){
             try {
-                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ?');
+                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE category_id = ?');
                 $query->execute([$this->id]);
 
                 if($query->rowCount() > 0 ){
@@ -115,6 +92,6 @@
             catch (PDOException $e) {
                 throw $e;
             } 
-        }
+        } 
 
     }
