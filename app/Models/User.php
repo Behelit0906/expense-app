@@ -6,23 +6,16 @@
 
     class User extends Model{
 
-        public $id;
-        public $name;
-        public $email;
-        public $password;
-        public $rol;
-        public $photo;
-        public $budget;
-
         public function __construct(){
             parent::__construct();
-            $this->id = null;
-            $this->name = '';
-            $this->email = '';
-            $this->password = '';
-            $this->rol = '';
-            $this->photo = '';
-            $this->budget = null; 
+            $this->table = 'users';
+            $this->columns = [
+                'id','name','email','password','rol','photo','budget'
+            ];
+            $this->attributesGenerator();
+
+            $this->rol = 'user';
+            $this->budget = 0;
         }
         
         
@@ -36,70 +29,6 @@
             $this->budget = $data['budget'];
         }
 
-        public function store (){
-            try{
-                $query = $this->pdo->prepare('INSERT INTO users 
-                (name, email, password, rol, photo, budget) 
-                VALUES (?,?,?,?,?,?)');
-
-                $query->execute([
-                    $this->name,
-                    $this->email,
-                    $this->password,
-                    $this->rol,
-                    $this->photo,
-                    $this->budget
-                ]);
-
-                return $query;
-
-            }
-            catch(PDOException $e){
-                throw $e;
-            }
-        }
-
-        public function get ($id){
-            try{
-                $query = $this->pdo->prepare('SELECT * FROM users WHERE id = ?');
-                $query->execute([$id]);
-
-                if($query->rowCount() > 0){
-                    $query = $query->fetch(PDO::FETCH_ASSOC);
-                    $this->fill($query);
-                    
-                    return $this;
-                }
-
-                return false;
-            }
-            catch(PDOException $e){
-                throw $e;
-            }
-        }
-
-
-        public function update (){
-            try{
-                $query = $this->pdo->prepare('UPDATE users SET 
-                name=?, email=?,password=?,rol=?, photo=?,budget=?');
-
-                $query->execute([
-                    $this->name,
-                    $this->email,
-                    $this->password,
-                    $this->rol,
-                    $this->photo,
-                    $this->budget
-                ]);
-
-                return $query;
-
-            }
-            catch(PDOException $e){
-                throw $e;
-            }
-        }
 
 
         public function get_expenses (){
