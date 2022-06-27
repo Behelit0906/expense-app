@@ -46,4 +46,25 @@
             } 
         }
 
+        public function findByEmail($email){
+            try {
+                $query = $this->pdo->prepare('SELECT * FROM '.$this->table.' WHERE id=?');
+                $query->execute([$email]);
+
+                if ($query->rowCount() > 0){
+                    $query = $query->fetch(PDO::FETCH_ASSOC);
+
+                    foreach($this->columns as $column){
+                        $this->$column = $query[$column];
+                    }
+
+                    return true;
+                }
+                return false;
+            } 
+            catch (PDOException $e) {
+                throw $e;
+            }
+        }
+
     }

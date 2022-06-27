@@ -103,11 +103,9 @@
                 if ($query->rowCount() > 0){
                     $query = $query->fetch(PDO::FETCH_ASSOC);
 
-                    foreach($this->columns as $column){
-                        $this->$column = $query[$column];
-                    }
+                    $this->fill($query);
 
-                    return true;
+                    return $this;
                 }
                 return false;
             } 
