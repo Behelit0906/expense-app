@@ -2,11 +2,11 @@
     session_start();
     require_once('vendor/autoload.php');
 
-use app\Models\User;
-use Bramus\Router\Router;
+    
+    use Bramus\Router\Router;
     
 
-    //$app = new Router;
+    $app = new Router;
     
     
     
@@ -18,8 +18,12 @@ use Bramus\Router\Router;
  */
 
     
-    //$app->get('/register','app\Controllers\SignUp@index');
-    //$app->post('/signup','app\Controllers\SignUp@signUp');
+    $app->get('/register','app\Controllers\SignUp@index');
+    $app->post('/signup','app\Controllers\SignUp@signUp');
+
+    $app->get('/login','app\Controllers\SignIn@index');
+
+
 
 
     $app->run();

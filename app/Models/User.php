@@ -15,6 +15,7 @@
             $this->attributesGenerator();
 
             $this->rol = 'user';
+            $this->photo = '';
             $this->budget = 0;
         }
         

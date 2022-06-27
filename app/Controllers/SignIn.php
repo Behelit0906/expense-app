@@ -4,14 +4,9 @@
 
 
     class SignIn{
-
-
-        
-
-
-        public function signIn(){
-
+    
+        public function index(){
+            echo 'Hola';
         }
-
 
     }
