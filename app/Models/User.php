@@ -1,6 +1,7 @@
 <?php
     namespace app\Models;
     use app\Classes\Model;
+    use app\Models\Expense;
     use PDO;
     use PDOException;
 
@@ -37,10 +38,15 @@
                 $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ?');
                 $query->execute([$this->id]);
 
+                $items = [];
                 if($query->rowCount() > 0 ){
-
+                    while ($item = $query->fetch(PDO::FETCH_ASSOC)){
+                        $expense = new Expense;
+                        $expense->fill($item);
+                        array_push($items,$expense);
+                    }
                 }
-                return false;    
+                return $items;    
             }
             catch (PDOException $e) {
                 throw $e;
