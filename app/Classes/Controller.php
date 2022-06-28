@@ -13,12 +13,12 @@
         {
             $loader = new FilesystemLoader('app/Views/');
             $this->twig = new Environment($loader);     
-            $function= new TwigFunction('errors', function (){
-                return isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
+            $function= new TwigFunction('session', function ($name){
+                return isset($_SESSION[$name]) ? $_SESSION[$name] : null;
             });
-            $cleanFunction = new TwigFunction('cleaner',function(){
-                if(isset($_SESSION['errors'])){
-                    unset($_SESSION['errors']);
+            $cleanFunction = new TwigFunction('sessionUnset',function($name){
+                if(isset($_SESSION[$name])){
+                    unset($_SESSION[$name]);
                 }
             });
             $this->twig->addFunction($function);

@@ -49,7 +49,7 @@
 
         public function findByEmail($email){
             try {
-                $query = $this->pdo->prepare('SELECT * FROM '.$this->table.' WHERE id=?');
+                $query = $this->pdo->prepare('SELECT * FROM '.$this->table.' WHERE email=?');
                 $query->execute([$email]);
 
                 if ($query->rowCount() > 0){
@@ -59,7 +59,7 @@
                         $this->$column = $query[$column];
                     }
 
-                    return true;
+                    return $this;
                 }
                 return false;
             } 

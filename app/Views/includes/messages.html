@@ -1,0 +1,22 @@
+{% set errors = session('errors')  %}
+{% set successMessage = session('success')  %}
+
+{% if errors %}
+    <div class="errors">
+        {% for error in errors %}
+            <p class="margin-3">{{error}}</p>
+        {% endfor %}
+    </div>
+    {{ sessionUnset('errors') }}
+
+{% elseif successMessage %}
+    <div class="success"> 
+        <p class="margin-3">{{successMessage}}</p>
+    </div>
+    {{ sessionUnset('success') }}
+{% endif %}
+
+
+
+
+

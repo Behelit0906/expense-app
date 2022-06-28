@@ -33,13 +33,8 @@
             $user->password = $pass;
             $user->store();
 
-            $_SESSION['successMessage'] = 'Successful registration';
+            $_SESSION['success'] = 'Successful registration';
             $this->redirect('http://your-expenses.com/login');      
         }
-
-        public function saludar(){
-            return 'hola';
-        }
-
 
     }

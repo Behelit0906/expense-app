@@ -1,0 +1,22 @@
+{% extends "layout/index.html" %}
+
+{% block title %}Sign In{% endblock %}
+{% block background_color %}background-blue{% endblock %}
+
+{% block content %}
+    <article class="login-container" id="main-container">
+        <h1 class="margin-bottom-35">Sign In</h1>
+        <form action="/signin" method="post" id="form" class="form">
+                <div>
+                    <input class="input" type="email" name="email" id="email" placeholder="Email">
+                </div>
+                <div>
+                    <input class="input margin-bottom-20" type="password" name="password" id="password" placeholder="Password">
+                </div>
+            
+            <button class="background-blue font-white button margin-top-20">Sign In</button>
+        </form>
+        Don't have an account? <a href="http://your-expenses.com/register">Sign Up</a>
+    </article>
+
+{% endblock %}
