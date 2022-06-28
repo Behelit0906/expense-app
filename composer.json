@@ -3,7 +3,8 @@
     "description": "Expense tracking application",
     "type": "project",
     "require": {
-        "bramus/router": "dev-master"
+        "bramus/router": "dev-master",
+        "twig/twig": "^3.0"
     },
     "license": "MIT",
     "autoload": {

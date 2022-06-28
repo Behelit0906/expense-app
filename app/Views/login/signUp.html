@@ -1,0 +1,35 @@
+{% extends "layout/index.html" %}
+
+{% block title %}Sign Up{% endblock %}
+{% block background_color %}background-blue{% endblock %}
+
+{% block content %}
+    <article class="signup-main-container" id="main-container">
+        <h1>Sign Up</h1>
+        <form action="/signup" method="post" id="form">
+            
+            <div class="inputs-container">
+                <div>
+                    <input class="input" type="text" name="name" id="name" placeholder="Name">
+                </div>
+                <div>
+                    <input class="input" type="email" name="email" id="email" placeholder="Email">
+                </div>
+                <div>
+                    <input class="input" type="password" name="password" id="password" placeholder="Password">
+                </div>
+                <div>
+                    <input class="input" type="password" name="password_confirmation" id="password_confirmation" placeholder="Password">
+                </div>
+            </div>
+            
+            <button class="background-blue font-white button margin-20">Sign Up</button>
+        </form>
+        Already have an account? <a href="#">Sign In</a>
+    </article>
+
+
+    <script src="public/js/signup.js"></script>
+
+{% endblock %}
+

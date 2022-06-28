@@ -6,7 +6,7 @@
     class SignIn{
     
         public function index(){
-            echo 'Hola';
+            echo 'login';
         }
 
     }

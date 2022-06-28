@@ -75,7 +75,7 @@
 
         private function email($string,$fieldName){
             if(!filter_var($string, FILTER_VALIDATE_EMAIL)){
-                array_push($this->errorMessages,'Enter a valid email address');
+                array_push($this->errorMessages,'Invalid email address');
                 return true;    
             }
                  

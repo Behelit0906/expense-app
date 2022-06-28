@@ -7,15 +7,16 @@
     class SignUp extends Controller{
 
         public function index(){
-            $this->render('login/signUp');
+            $this->render('login/signUp',['currentPage' => 'signup']);
         }
         
         public function signUp(){
             $this->validate([
                 'name' => ['required','min:3','max:20'],
                 'email' =>['required','email'],
-                'password' => ['required','password_confirmation']
+                'password' => ['required','min:8','max:16','password_confirmation']
             ]);
+
 
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -23,7 +24,7 @@
 
             $user = new User;
             if($user->findByEmail($email)){
-                $_SESSION['validateErrors'] = ['Email is already registered'];
+                $_SESSION['errors'] = ['Email is already registered'];
                 $this->redirect($_SERVER['HTTP_REFERER']);
             }
 
@@ -34,6 +35,10 @@
 
             $_SESSION['successMessage'] = 'Successful registration';
             $this->redirect('http://your-expenses.com/login');      
+        }
+
+        public function saludar(){
+            return 'hola';
         }
 
 
