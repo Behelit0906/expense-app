@@ -4,6 +4,7 @@
     use Twig\Loader\FilesystemLoader;
     use Twig\Environment;
     use Twig\TwigFunction;
+    use app\Models\User;
 
     class Controller{
 
@@ -55,5 +56,13 @@
         protected function redirect($page){
             header('Location:'.$page);
             exit();
+        }
+
+        protected function checkRole($id){
+            $user = new User;
+            if($user->find($id)){
+                return $user->rol;
+            }
+            return false;    
         }
     }

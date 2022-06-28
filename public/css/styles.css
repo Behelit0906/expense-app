@@ -15,6 +15,10 @@ body{
     background-color: #288BE1;
 }
 
+.background-light-blue{
+    background-color: #DDECFF;
+}
+
 .navbar{
     min-height: 40px;
     padding-top: 10px; 

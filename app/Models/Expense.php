@@ -55,7 +55,6 @@
                 if($query->rowCount() > 0){
                     $category = new Category;
                     $category->fill($query->fetch(PDO::FETCH_ASSOC));
-
                     return $category;
                 }
                 return false;

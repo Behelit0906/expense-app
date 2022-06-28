@@ -5,13 +5,7 @@
     
     $app = new Router;
     
-    
 
-    //Middleware
-   /*  $app->before('GET','/register',function(){
-        echo 'perrro con perro <br>';
-    });
- */
 
     $app->get('','app\Controllers\SignIn@index');
     $app->get('/register','app\Controllers\SignUp@index');
@@ -19,7 +13,18 @@
     $app->post('/signup','app\Controllers\SignUp@signUp');
     $app->post('/signin','app\Controllers\SignIn@signIn');
 
+    //Middleware
+    $app->before('GET','/dashboard',function(){
+        if(!isset($_SESSION['user_id'])){
+            header('Location:http://your-expenses.com/login');
+            exit();
+        }
+    });
+    
 
+
+
+    $app->get('/dashboard','app\Controllers\Dashboard@index');
 
     $app->run();
 

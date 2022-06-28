@@ -6,6 +6,21 @@
 
     class SignUp extends Controller{
 
+        public function __construct()
+        {
+            parent::__construct();
+
+            if(isset($_SESSION['user_id'])){
+                $role = $this->checkRole($_SESSION['user_id']);
+                if($role == 'user'){
+                    $this->redirect('http://your-expenses.com/dashboard');
+                }
+                elseif($role == 'admin'){
+                    $this->redirect('http://your-expenses.com/admin-panel');
+                }
+            }
+        }
+
         public function index(){
             $this->render('login/signUp',['currentPage' => 'signup']);
         }
@@ -26,6 +41,7 @@
             if($user->findByEmail($email)){
                 $_SESSION['errors'] = ['Email is already registered'];
                 $this->redirect($_SERVER['HTTP_REFERER']);
+                exit(); 
             }
 
             $user->name = $name;
@@ -34,7 +50,8 @@
             $user->store();
 
             $_SESSION['success'] = 'Successful registration';
-            $this->redirect('http://your-expenses.com/login');      
+            $this->redirect('http://your-expenses.com/login');
+            exit();      
         }
 
     }
