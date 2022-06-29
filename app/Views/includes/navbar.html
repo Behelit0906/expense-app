@@ -1,10 +1,10 @@
 <nav class="navbar">
     <ul class="navbar-list">
-        {% if currentPage != 'signup' and currentPage != 'signin' %}
-            <li class="navbar-element"><a class="link" href="#">Home</a></li>
+        <li class="navbar-element"><a class="link" href="http://your-expenses.com/{{currentPage}}">Home</a></li>
+        {% if currentPage == 'dashboard'%} 
             <li class="navbar-element"><a class="link" href="#">Expenses</a></li>
             <li class="navbar-element profile-button">
-                Luis Salcedo
+                {{user.name}}
                 <div class="expand-icon-container">
                     <img  class="expand-icon" src="public/assets/icons/expand_more.svg" alt="expand more icon">
                 </div> 

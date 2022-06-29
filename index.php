@@ -12,6 +12,7 @@
     $app->get('/login','app\Controllers\SignIn@index');
     $app->post('/signup','app\Controllers\SignUp@signUp');
     $app->post('/signin','app\Controllers\SignIn@signIn');
+    $app->get('/dashboard','app\Controllers\Dashboard@index');
 
     //Middleware
     $app->before('GET','/dashboard',function(){
@@ -24,7 +25,7 @@
 
 
 
-    $app->get('/dashboard','app\Controllers\Dashboard@index');
+    
 
     $app->run();
 

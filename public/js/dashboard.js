@@ -1,0 +1,1 @@
+// https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js

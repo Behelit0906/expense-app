@@ -24,7 +24,7 @@
         }
     
         public function index(){
-            $this->render('login/signIn',['currentPage' => 'signup']);   
+            $this->render('login/signIn',['currentPage' => 'login']);   
         }
 
 

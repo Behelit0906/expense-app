@@ -1,8 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("form").addEventListener('submit', validarFormulario); 
-  });
+    try {
+        document.getElementById("signup-form").addEventListener('submit', validarSignUp);
+    } catch (error) {
+        document.getElementById("signin-form").addEventListener('submit', validarSignIn); 
+    }
+    
+});
 
-function validarFormulario(evento){
+function validarSignUp(evento){
     evento.preventDefault();
 
     var errores = []
@@ -57,6 +62,44 @@ function validarFormulario(evento){
     this.submit();
 }
 
+function validarSignIn(evento){
+    evento.preventDefault();
+
+    var errores = []
+   
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+    re=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    switch(true){
+        case email.length == 0:
+            errores.push('The field email is required');
+            break; 
+        case !re.exec(email):
+            errores.push('Invalid email address');
+            break;
+    }
+
+    switch(true){
+        case password.length == 0:
+            errores.push('The field password is required');
+            break; 
+        case password.length < 8:
+            errores.push('The password must have a minimum of 8 characters');
+            break;
+        case password.length > 16:
+            errores.push('The password must have a maximum of 16 characters');
+            break; 
+    }
+
+    if(errores.length > 0){
+        buildErrorsBlock(errores);
+        return
+    }
+    this.submit();
+
+}
+
 
 function buildErrorsBlock(errores){
     const container = document.getElementById('messages');
@@ -71,6 +114,5 @@ function buildErrorsBlock(errores){
     });
     
     container.setAttribute('class','errors');
-    container.insertAdjacentElement("afterbegin",div);
 
 }

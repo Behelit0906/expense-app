@@ -6,7 +6,7 @@
 {% block content %}
     <article class="login-container" id="main-container">
         <h1 class="margin-bottom-35">Sign In</h1>
-        <form action="/signin" method="post" id="form" class="form">
+        <form action="/signin" method="post" id="signin-form" class="form">
                 <div>
                     <input class="input" type="email" name="email" id="email" placeholder="Email">
                 </div>
@@ -18,5 +18,7 @@
         </form>
         Don't have an account? <a href="http://your-expenses.com/register">Sign Up</a>
     </article>
+
+    <script src="public/js/login.js"></script>
 
 {% endblock %}

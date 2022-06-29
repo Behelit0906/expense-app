@@ -1,9 +1,7 @@
 <?php
-    namespace app\Controller;
+    namespace app\Controllers;
     use app\Classes\Controller;
     use app\Models\User;
-    use app\Models\Expense;
-
 
     class Dashboard extends Controller{
 
@@ -40,11 +38,10 @@
             $data =[
                 'user' => $user,
                 'expenses' => $expenses,
-                'categories' => $categories
+                'categories' => $categories,
+                'currentPage' => 'dashboard'
             ];
-
             $this->render('dashboard/index', $data);
-
         }
 
 

@@ -22,7 +22,7 @@
         }
 
         public function index(){
-            $this->render('login/signUp',['currentPage' => 'signup']);
+            $this->render('login/signUp',['currentPage' => 'login']);
         }
         
         public function signUp(){
