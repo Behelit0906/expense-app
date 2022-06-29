@@ -1,7 +1,9 @@
 <?php
     session_start();
     require_once('vendor/autoload.php');
-    use Bramus\Router\Router;
+
+use app\Models\Expense;
+use Bramus\Router\Router;
     
     $app = new Router;
     
@@ -28,6 +30,8 @@
     
 
     $app->run();
+
+   
 
 
 

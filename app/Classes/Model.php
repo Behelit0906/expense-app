@@ -118,6 +118,7 @@
         public function store(){
             try{ 
                 $query = $this->prepareStoreQuery();
+                
                 $query = $this->pdo->prepare($query);
 
                 $data =[];
@@ -126,7 +127,7 @@
                     $temp = $this->columns[$i];
                     array_push($data, $this->$temp);
                 }
-                
+
                 $query->execute($data);
                 return $query->rowCount() > 0 ? true:false;
 
