@@ -14,9 +14,10 @@
 
             $this->table = 'expenses';
             $this->columns = [
-                'id','name','amount','user_id','category_id'
+                'id','name','amount','date','user_id','category_id'
             ];
             $this->attributesGenerator();
+            $this->date = date('Y-m-d');
         }
         
         public function fill(array $data)
