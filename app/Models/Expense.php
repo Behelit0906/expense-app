@@ -25,6 +25,7 @@
             $this->id = $data['id'];
             $this->name = $data['name'];
             $this->amount = $data['amount'];
+            $this->date = $data['date'];
             $this->user_id = $data['user_id'];
             $this->category_id = $data['category_id'];
         }
@@ -59,6 +60,47 @@
                     return $category;
                 }
                 return false;
+            }
+            catch(PDOException $e){
+                throw $e;
+            }
+        }
+
+        public function biggestExpenseThisMonth($user_id,$month){
+            try{
+                $query = $this->pdo->prepare('SELECT * FROM expenses 
+                WHERE user_id = ? AND amount = (SELECT MAX(amount) 
+                FROM expenses) AND MONTH(date) = ? ORDER BY id DESC LIMIT 1');
+                $query->execute([$user_id, $month]);
+
+                if($query->rowCount() > 0){
+                    $query = $query->fetch(PDO::FETCH_ASSOC);
+                    return intval($query['amount']);
+                }
+                return 0;
+
+            }
+            catch(PDOException $e){
+                throw $e;
+            }
+        }
+
+        public function limitedSelect($user_id,$amount){
+            try{
+                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? 
+                ORDER BY id DESC LIMIT '.$amount);
+                $query->execute([$user_id]);
+
+                $items = [];
+                if($query->rowCount() > 0){
+                    while($item = $query->fetch(PDO::FETCH_ASSOC)){
+                        $expense = new Expense;
+                        $expense->fill($item);
+                        array_push($items,$expense);
+                    }
+                }
+                return $items;
+
             }
             catch(PDOException $e){
                 throw $e;
