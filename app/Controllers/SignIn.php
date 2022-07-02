@@ -3,6 +3,7 @@
 
     use app\Classes\Controller;
     use app\Models\User;
+    use app\Classes\Validator;
 
 
     class SignIn extends Controller{
@@ -30,10 +31,21 @@
 
         public function signIn(){
 
-            $this->validate([
+            $temp = $this->prepareValidations([
                 'email' =>['required','email'],
                 'password' => ['required','min:8','max:16']
             ]);
+
+            $validator = new Validator;
+            $errorMessages = $validator->validate($temp[0], $temp[1]);
+            
+
+            if(count($errorMessages) > 0){
+                $_SESSION['errors'] = $errorMessages;
+                $this->redirect($_SERVER['HTTP_REFERER']);
+            } 
+
+
 
             $email = $_POST['email'];
             $pass = $_POST['password'];

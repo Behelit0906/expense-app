@@ -69,16 +69,15 @@
         public function biggestExpenseThisMonth($user_id,$month){
             try{
                 $query = $this->pdo->prepare('SELECT * FROM expenses 
-                WHERE user_id = ? AND amount = (SELECT MAX(amount) 
-                FROM expenses) AND MONTH(date) = ? ORDER BY id DESC LIMIT 1');
+                WHERE user_id = ? AND MONTH(date) = ? ORDER BY amount DESC LIMIT 1');
                 $query->execute([$user_id, $month]);
 
                 if($query->rowCount() > 0){
                     $query = $query->fetch(PDO::FETCH_ASSOC);
                     return intval($query['amount']);
                 }
+                
                 return 0;
-
             }
             catch(PDOException $e){
                 throw $e;

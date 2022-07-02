@@ -2,7 +2,7 @@
     namespace app\Controllers;
     use app\Classes\Controller;
     use app\Models\User;
-
+    use app\Classes\Validator;
 
     class SignUp extends Controller{
 
@@ -26,27 +26,35 @@
         }
         
         public function signUp(){
-            $this->validate([
+            $temp = $this->prepareValidations([
                 'name' => ['required','min:3','max:20'],
                 'email' =>['required','email'],
                 'password' => ['required','min:8','max:16','password_confirmation']
             ]);
 
+            $validator = new Validator;
+            $errorMessages = $validator->validate($temp[0], $temp[1]);
+            
 
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $pass = password_hash($_POST['password'],PASSWORD_BCRYPT);
-
-            $user = new User;
-            if($user->findByEmail($email)){
-                $_SESSION['errors'] = ['Email is already registered'];
+            if(count($errorMessages) > 0){
+                $_SESSION['errors'] = $errorMessages;
                 $this->redirect($_SERVER['HTTP_REFERER']);
-                exit(); 
+                exit();
             }
 
-            $user->name = $name;
+            $email = $_POST['email'];
+            $user = new User;
+            if($user->findByEmail($email)){
+                array_push($errorMessages,'Email is already registered');
+                $_SESSION['errors'] = $errorMessages;
+                $this->redirect($_SERVER['HTTP_REFERER']);
+                exit();
+            }
+
+
+            $user->name = $_POST['name'];
             $user->email = $email;
-            $user->password = $pass;
+            $user->password = password_hash($_POST['password'],PASSWORD_BCRYPT);
             $user->store();
 
             $_SESSION['success'] = 'Successful registration';

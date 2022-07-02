@@ -6,22 +6,22 @@
 {% block content %}
     <article class="dashboard-container">
         <section class="top-block">
-            <h2 class="welcome-message">Welcome Luis Salcedo</h2>
+            <h2 class="welcome-message">Welcome <span class="username"></span></h2>
             
             <div class="general-balance margin-bottom-20">
                 <p class="opaque-font medium-font">Balance sheet for the month</p>
-                <span class="big-font font-weight-bold">$1.500</span>
+                <span class="big-font font-weight-bold" id="balance"></span>
             </div>
                      
             <div class="other-calculations-container">
                 <div class="remaining-amount">
-                    <p class="opaque-font medium-font">From $10.000 per month you subtract </p>
-                    <span class="big-font font-weight-bold">$8.500</span>
+                    <p class="opaque-font medium-font" id="total-budget"></p>
+                    <span class="big-font font-weight-bold" id="budget"></span>
                 </div>
 
                 <div class="largest-expense">
                     <p class="medium-font opaque-font">Your biggest expense this month</p>
-                    <span class="big-font font-weight-bold">$450</span>
+                    <span class="big-font font-weight-bold" id="biggetsExpense"></span>
                 </div>
             </div>   
         </section>
@@ -32,35 +32,9 @@
             </canvas>
             <div>
                 <h2>Expenses per month by category</h2>
-                <div class="category-card">
-                    <span class="small-font">Ropa</span>
-                    <div class="category-amount">
-                        $400.00
-                    </div>
-                    <p class="transaction-number">1 transaction</p>
+                <div id="category-card-container">
+
                 </div>
-                <div class="category-card">
-                    <span class="small-font">Ropa</span>
-                    <div class="category-amount">
-                        $400.00
-                    </div>
-                    <p class="transaction-number">1 transaction</p>
-                </div>
-                <div class="category-card">
-                    <span class="small-font">Ropa</span>
-                    <div class="category-amount ">
-                        $400.00
-                    </div>
-                    <p class="transaction-number">1 transaction</p>
-                </div>
-                <div class="category-card">
-                    <span class="small-font">Ropa</span>
-                    <div class="category-amount">
-                        $400.00
-                    </div>
-                    <p class="transaction-number">1 transaction</p>
-                </div>
-                
             </div>
         </section>
 
@@ -68,34 +42,20 @@
             
             <h2>Operations</h2>
             
-            <div class="add-expense">Add a new expense</div>
+            <div class="add-expense" id="btnModal">Add a new expense</div>
     
-            <div class="recent-expenses-container">
-                <h2>Most recent expenses</h2>
-                <div class="margin-bottom-20">
-                    <div class="display-inline-block margin-right-35">
-                        <span class="small-font opaque-font">2022-06-29</span>
-                        <p class="margin-0">Prueba</p>
-                    </div>
-                    <div class="display-inline-block font-weight-bold">
-                        $300.00
-                    </div>
-                </div>
-                <div class="margin-bottom-20">
-                    <div class="display-inline-block margin-right-35">
-                        <span class="small-font opaque-font">2022-06-29</span>
-                        <p class="margin-0">Prueba</p>
-                    </div>
-                    <div class="display-inline-block font-weight-bold">
-                        $300.00
-                    </div>
-                </div>
-
+            <h2 class="margin-top-50px">Most recent expenses</h2>
+            <div id="recent-expenses-container">
+                
             </div>    
         </aside>
 
     </article>
+    {{ include('includes/modalForm.html') }}
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="public/js/chart.js"></script>
+    <script src="public/js/dashboard.js"></script>
     
 
 {% endblock %}

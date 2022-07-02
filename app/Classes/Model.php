@@ -76,15 +76,13 @@
                 $query = $this->pdo->prepare('SELECT * FROM '.$this->table);
                 $query->execute();
                 
-
+                $items = [];
                 if($query->rowCount() > 0){
-                    $items = [];
-
                     while($item = $query->fetch(PDO::FETCH_ASSOC)){
-                        foreach($this->columns as $column){
-                            $this->$column = $item[$column];
-                        }
-                        array_push($items,$this);
+                        $className = get_class($this);
+                        $instance = new $className; 
+                        $instance->fill($item);
+                        array_push($items,$instance);
                     }    
                 }
 
@@ -102,9 +100,7 @@
 
                 if ($query->rowCount() > 0){
                     $query = $query->fetch(PDO::FETCH_ASSOC);
-
                     $this->fill($query);
-
                     return $this;
                 }
                 return false;

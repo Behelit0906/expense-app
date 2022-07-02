@@ -1,6 +1,8 @@
 <?php
     namespace app\Classes;
 
+use Exception;
+
     class Validator{
 
         private $validations;
@@ -97,8 +99,6 @@
         }
 
         private function min($limit, $string,$fieldName){
-            echo $limit;
-                echo $string;
             if(strlen($string) < $limit){
                 array_push($this->errorMessages,'The '.$fieldName.' must have a minimum of '.$limit.' characters');
                 return true;
@@ -111,8 +111,33 @@
                 return true;
             }
         }
-        
 
+        private function date($string,$fieldName){
+            $pieces = explode('-',$string);
+
+            if(count($pieces) == 3){
+                try{
+                    $year = intval($pieces[0]);
+                    $month = intval($pieces[1]);
+                    $day = intval($pieces[2]);
+                }
+                catch(Exception $e){
+                    array_push($this->errorMessages,'Invalid date');
+                    return true;
+                }
+                
+                if(!checkdate($month,$day,$year)){
+                    array_push($this->errorMessages,'Invalid date');
+                    return true;
+                }
+
+            }
+            else{
+                array_push($this->errorMessages,'Invalid date');
+                return true;
+            }
+        }
+        
     }
 
     

@@ -34,7 +34,7 @@
         
 
         //validador para datos de formularios
-        protected function validate($rules){
+        protected function prepareValidations($rules){
             $data = [];
             $validationRules = [];
             foreach($rules as $key => $value){
@@ -42,14 +42,7 @@
                 $validationRules[$key] = $value;
             }
 
-            $validator = new Validator;
-            $errorMessages = $validator->validate($data, $validationRules);
-            
-
-            if(count($errorMessages) > 0){
-                $_SESSION['errors'] = $errorMessages;
-                $this->redirect($_SERVER['HTTP_REFERER']);
-            }   
+            return [$data, $validationRules];  
         }
 
 
