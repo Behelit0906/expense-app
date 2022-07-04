@@ -151,7 +151,7 @@ async function registerExpense(evento){
     }).then(e => e.json());
 
     loadData()
-    console.log(response);
+    
 
 }
 

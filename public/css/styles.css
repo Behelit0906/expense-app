@@ -161,9 +161,8 @@ body{
 .bottom-block{
     width: 65%;
     min-height: 400px;
-    padding-left: 5%;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding: 5%;
+    
     background-color: white;
 }
 
@@ -240,6 +239,19 @@ body{
     font-size: 75%;
 }
 
+.expenses-title{
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.canvas{
+    width: 100%;
+}
+
+.category-card-container{
+    margin-top: 25px;
+    padding-left: 45px;
+}
 
 .category-card{
     display: inline-block;
