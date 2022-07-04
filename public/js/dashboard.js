@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", async function() {
     biggetsExpense = document.getElementById('biggetsExpense');
     options = document.getElementById('categoryId');
     formulario = document.getElementById("expenseForm");
-    formulario.addEventListener('submit',registerExpense)
+    formulario.addEventListener('submit',registerExpense);
 
-    loadData();  
+    loadData();
+    dropDownMenu();
     
 });
 
@@ -152,6 +153,31 @@ async function registerExpense(evento){
 
     loadData()
     
+
+}
+
+function dropDownMenu(){
+    const btn = document.getElementById('dropMenu-btn');
+    
+    const dropMenu = document.getElementById('dropdown-menu');
+
+    btn.onclick = function(){
+        let display = dropMenu.getAttribute('style');
+        
+        if(display == 'display: none;'){
+            dropMenu.setAttribute('style','display: block;');
+        }
+        else{
+            dropMenu.setAttribute('style','display: none;');
+        }
+    }
+
+    window.onclick = function(event){
+        let display = dropMenu.getAttribute('style');
+        if(display == 'display: block;' && event.target != btn){
+            dropMenu.setAttribute('style','display: none;');
+        } 
+    }
 
 }
 

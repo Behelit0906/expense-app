@@ -44,13 +44,24 @@ body{
 }
 
 .link{
-    color: white;
     text-decoration: none;
 }
 
 .profile-button{
-    float: right;
-    
+    float: right;  
+}
+
+.profile-picture{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-right: 7px;
+    vertical-align:middle;
+    border-radius: 100%;
+}
+
+.position-relative{
+    position: relative;
 }
 
 .expand-icon-container{
@@ -67,6 +78,26 @@ body{
 
 .font-white{
     color: white;
+}
+
+.font-black{
+    color: black;
+}
+
+
+
+.dropdown-menu{
+    position: absolute;
+    overflow: hidden;
+    width: 150px;
+    margin-top: 3px;
+    background-color: white;
+}
+
+.dropdown-item{
+    display: block;
+    padding: 7px;
+    text-align: center;
 }
 
 .login-container{
@@ -341,6 +372,10 @@ body{
 
 .input:focus{
     outline-color:#288BE1;
+}
+
+.dropdown-item:hover{
+    background-color: #2584D6;
 }
 
 

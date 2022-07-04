@@ -1,13 +1,18 @@
 <nav class="navbar">
     <ul class="navbar-list">
-        <li class="navbar-element"><a class="link" href="http://your-expenses.com/{{currentPage}}">Home</a></li>
-        {% if currentPage == 'dashboard'%} 
-            <li class="navbar-element"><a class="link" href="#">Expenses</a></li>
-            <li class="navbar-element profile-button">
+        <li class="navbar-element"><a class="link font-white" href="http://your-expenses.com/dashboard">Home</a></li>
+        {% if currentPage == 'dashboard' or currentPage == 'expense' or currentPage == 'admin-panel' or currentPage == 'profile'%} 
+            <li class="navbar-element"><a class="link font-white" href="#">Expenses</a></li>
+            <li class="navbar-element profile-button position-relative">
+                <img class="profile-picture" src="public/profile-pictures (symlink)/photo.jpg" alt="profile picture">
                 <span class="username"></span>
                 <div class="expand-icon-container">
-                    <img  class="expand-icon" src="public/assets/icons/expand_more.svg" alt="expand more icon">
+                    <img  class="expand-icon" id="dropMenu-btn" src="public/assets/icons/expand_more.svg" alt="expand more icon">
                 </div> 
+                <div style="display: none;" class="dropdown-menu" id="dropdown-menu">
+                    <a class="link font-black dropdown-item" href="http://your-expenses.com/profile">Profile</a>
+                    <a class="link font-black dropdown-item" href="http://your-expenses.com/logout">Log Out</a>
+                </div>
             </li>
         {% endif %}
     </ul>  
