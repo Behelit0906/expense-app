@@ -83,7 +83,7 @@
                 'residual_budget' => $this->user->budget - $general_balance,
                 'biggets_expense' => $this->biggestExpenseThisMonth(),
                 'categories' => $categories,
-                'category_transactions' => $this->transactionsByCategory(),
+                'category_transactions' => $this->transactionsByCategorythisMonth(),
                 'recent_expenses' => $this->recentExpenses(),
             ];
 
@@ -91,11 +91,10 @@
             echo json_encode($data,true);
             exit();   
             
-            
         }
 
         private function balanceMonth(){
-            $expenses = $this->user->get_expenses();
+            $expenses = $this->expense->getExpensesThisMonth($this->user->id, date('m'));
 
             $balance = 0;
 
@@ -115,32 +114,47 @@
             return $this->expense->biggestExpenseThisMonth($this->user->id, $month);
         }
 
-        private function transactionsByCategory(){
-            $categories = [];
-            $expenses = $this->user->get_expenses();
-
-            foreach($expenses as $expense){
-                $category = $expense->belongToCategory();
-                if(!array_key_exists($category->name, $categories)){
-                    $categories[$category->name] = [
-                        'name' => $category->name,
-                        'color' => $category->color,
-                        'amount' => $expense->amount,
-                        'transactions' => 1
-                    ];
-                }
-                else{
-                    $categories[$category->name]['transactions'] += 1;
-                    $categories[$category->name]['amount'] += $expense->amount;
-                }
-            }
+        private function transactionsByCategorythisMonth(){
+           
+            return $this->transactionsDataThisMonth();
             
-            $data = [];
+        }
+
+
+        public function chartData(){
+            $data = $this->transactionsDataThisMonth();
+
+            header('Content-Type: application/json');
+            echo json_encode($data, true);
+            exit();
+        }
+
+        private function transactionsDataThisMonth(){
+            $category = new Category;
+            $categories = $category->get_all();
+
+            $items = [];
+
             foreach($categories as $category){
-                array_push($data,$category);
+                $amount = 0;
+                $transactions = $category->getExpensesByMonth(date('m'));
+
+                foreach($transactions as $transaction){
+                    $amount += $transaction->amount;
+                }
+                
+
+                array_push($items,[
+                    'name' => $category->name,
+                    'color' => $category->color,
+                    'transactions' => count($transactions),
+                    'amount' => $amount
+                ]);
             }
 
-            return $data;
+            return $items;
+
+            
         }
 
 

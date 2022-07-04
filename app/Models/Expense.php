@@ -106,6 +106,26 @@
             }
         }
 
+        public function getExpensesThisMonth($user_id, $month){
+            try {
+                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? AND MONTH(date) = ?');
+                $query->execute([$user_id, $month]);
+
+                $items = [];
+                if($query->rowCount() > 0 ){
+                    while ($item = $query->fetch(PDO::FETCH_ASSOC)){
+                        $expense = new Expense;
+                        $expense->fill($item);
+                        array_push($items,$expense);
+                    }
+                }
+                return $items;    
+            }
+            catch (PDOException $e) {
+                throw $e;
+            }
+        }
+
 
 
 

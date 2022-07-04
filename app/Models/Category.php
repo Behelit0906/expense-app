@@ -39,6 +39,26 @@
             catch (PDOException $e) {
                 throw $e;
             } 
-        } 
+        }
+        
+        public function getExpensesByMonth($month){
+            try {
+                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE category_id = ? AND MONTH(date) = ?');
+                $query->execute([$this->id,$month]);
+
+                $items = [];
+                if($query->rowCount() > 0 ){
+                    while ($item = $query->fetch(PDO::FETCH_ASSOC)){
+                        $expense = new Expense;
+                        $expense->fill($item);
+                        array_push($items,$expense);
+                    }
+                }
+                return $items;    
+            }
+            catch (PDOException $e) {
+                throw $e;
+            }
+        }
 
     }
