@@ -1,6 +1,5 @@
 <?php
     namespace app\Classes;
-    require('app/Config/Config.php');
     use PDO;
     use PDOException;
 

@@ -27,7 +27,8 @@
         }
 
         protected function render($view, $data = []){
-            $view.='.html';     
+            $view.='.html';
+            $data['URL'] = URL;     
             echo $this->twig->render($view,$data); 
         }
 
@@ -47,7 +48,7 @@
 
 
         protected function redirect($page){
-            header('Location:'.$page);
+            header('Location:'.URL.$page);
             exit();
         }
 

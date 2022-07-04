@@ -13,10 +13,10 @@
             if(isset($_SESSION['user_id'])){
                 $role = $this->checkRole($_SESSION['user_id']);
                 if($role == 'user'){
-                    $this->redirect('http://your-expenses.com/dashboard');
+                    $this->redirect('/dashboard');
                 }
                 elseif($role == 'admin'){
-                    $this->redirect('http://your-expenses.com/admin-panel');
+                    $this->redirect('/admin-panel');
                 }
             }
         }
@@ -38,8 +38,7 @@
 
             if(count($errorMessages) > 0){
                 $_SESSION['errors'] = $errorMessages;
-                $this->redirect($_SERVER['HTTP_REFERER']);
-                exit();
+                $this->redirect('/register');
             }
 
             $email = $_POST['email'];
@@ -47,8 +46,7 @@
             if($user->findByEmail($email)){
                 array_push($errorMessages,'Email is already registered');
                 $_SESSION['errors'] = $errorMessages;
-                $this->redirect($_SERVER['HTTP_REFERER']);
-                exit();
+                $this->redirect('/register');
             }
 
 
@@ -58,8 +56,7 @@
             $user->store();
 
             $_SESSION['success'] = 'Successful registration';
-            $this->redirect('http://your-expenses.com/login');
-            exit();      
+            $this->redirect('/login');    
         }
 
     }

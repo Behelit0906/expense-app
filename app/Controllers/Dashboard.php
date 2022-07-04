@@ -18,7 +18,6 @@
             $role = $this->checkRole($_SESSION['user_id']);
             if($role != 'user'){
                 $this->redirect($_SERVER['HTTP_REFERER']);
-                exit();
             }
             $this->user = new User;
             $this->expense = new Expense;

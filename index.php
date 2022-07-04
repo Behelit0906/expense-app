@@ -1,6 +1,7 @@
 <?php
     session_start();
     require_once('vendor/autoload.php');
+    require('app/Config/Config.php');
 
     use Bramus\Router\Router;
     
@@ -12,6 +13,7 @@
     $app->get('','app\Controllers\SignIn@index');
     $app->get('/register','app\Controllers\SignUp@index');
     $app->get('/login','app\Controllers\SignIn@index');
+    $app->get('/logout','app\Controllers\SignIn@logOut');
     $app->post('/signup','app\Controllers\SignUp@signUp');
     $app->post('/signin','app\Controllers\SignIn@signIn');
     $app->get('/dashboard','app\Controllers\Dashboard@index');
@@ -50,9 +52,6 @@
     });
     
 
-
-
-    
 
     $app->run();
 
