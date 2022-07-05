@@ -151,6 +151,32 @@ async function registerExpense(evento){
             body:data
     }).then(e => e.json());
 
+    const container = document.getElementById('modal-background');
+    const div = document.getElementById('modalMessages');
+    div.innerHTML = '';
+    
+
+    if(response.hasOwnProperty('errors')){
+        div.setAttribute('class','errors top-position');
+
+        for(i = 0; i < response['errors'].length; i++){
+            const p = document.createElement("p");
+            p.setAttribute('class','margin-3');
+            p.textContent = response['errors'][i];
+            div.appendChild(p);
+        }
+            
+    }
+    else if(response.hasOwnProperty('success')){
+        div.setAttribute('class','success top-position');
+        const p = document.createElement("p");
+        p.setAttribute('class','margin-3');
+        p.textContent = response['success'][0];
+        div.appendChild(p);
+    }
+
+    container.insertAdjacentElement('afterbegin',div);
+
     loadData()
     
 

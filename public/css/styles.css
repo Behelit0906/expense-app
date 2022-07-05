@@ -159,6 +159,13 @@ body{
     background-color: rgb(180, 8, 8);
 }
 
+.success{
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    background-color: rgb(127, 248, 56);
+}
+
 
 .dashboard-container{
     position: relative;
@@ -315,6 +322,12 @@ body{
     margin-top: 6%;
     font-weight: 300;
     
+}
+
+.top-position{
+    position: absolute;
+    width: 100%;
+    top: 10px;
 }
 
 .modal-background{ 

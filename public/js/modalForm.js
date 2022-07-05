@@ -5,6 +5,8 @@ if(document.getElementById("btnModal")){
     var body = document.getElementsByTagName("body")[0];
 
     btn.onclick = function() {
+        
+    
         modal.style.display = "block";
 
         body.style.position = "static";
@@ -13,6 +15,10 @@ if(document.getElementById("btnModal")){
     }
 
     span.onclick = function() {
+
+        const div = document.getElementById('modalMessages');
+        div.innerHTML = '';
+
         modal.style.display = "none";
 
         body.style.position = "inherit";
