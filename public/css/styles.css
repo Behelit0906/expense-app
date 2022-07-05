@@ -155,6 +155,7 @@ body{
 .errors{
     overflow: hidden;
     text-align: center;
+    font-weight: 500;
     color: white;
     background-color: rgb(180, 8, 8);
 }
@@ -162,6 +163,7 @@ body{
 .success{
     overflow: hidden;
     text-align: center;
+    font-weight: 500;
     color: white;
     background-color: rgb(127, 248, 56);
 }

@@ -46,6 +46,7 @@ async function loadData(){
 
 
     //Agrego las categorias al input select
+    options.innerHTML = '';
     for(i = 0; i < data['categories'].length; i++){
         const option = document.createElement('option');
         option.setAttribute('value',data['categories'][i]['id']);
@@ -171,13 +172,14 @@ async function registerExpense(evento){
         div.setAttribute('class','success top-position');
         const p = document.createElement("p");
         p.setAttribute('class','margin-3');
-        p.textContent = response['success'][0];
+        p.textContent = response['success'];
         div.appendChild(p);
+        loadData();
     }
 
     container.insertAdjacentElement('afterbegin',div);
 
-    loadData()
+    
     
 
 }
