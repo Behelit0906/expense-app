@@ -7,9 +7,11 @@ var totalBudget;
 var biggetsExpense;
 var options;
 var formulario;
+var photo;
 
 document.addEventListener("DOMContentLoaded", async function() {
     
+    photo = document.getElementById('profile-photo');
     elemets = document.getElementsByClassName('username');
     balance = document.getElementById('balance');
     budget = document.getElementById('budget');
@@ -30,6 +32,8 @@ async function loadData(){
     for(let i = 0; i < elemets.length; i++){
         elemets[i].textContent = data['user_name'];
     }
+
+    photo.setAttribute('src',photo.getAttribute('src')+data['photo']);
 
     balance.textContent = formatter.format(data['general_balance']);
 

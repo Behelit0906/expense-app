@@ -79,6 +79,7 @@
 
             $data = [
                 'user_name' => $this->user->name,
+                'photo' => $this->user->photo,
                 'general_balance' => $general_balance,
                 'budget' => intval($this->user->budget),
                 'residual_budget' => $this->user->budget - $general_balance,
