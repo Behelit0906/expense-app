@@ -31,7 +31,8 @@
         }
 
         public function save(){
-
+            header('Content-Type: application/json');
+            
             $temp = $this->prepareValidations([
                 'name' => ['required','min:3','max:15'],
                 'amount' => ['required','numeric'],
@@ -65,6 +66,7 @@
 
             $this->expense->store();
 
+            
             echo json_encode(["success" => "Expense recorded"]);
             exit();
 
@@ -87,7 +89,7 @@
             ];
 
             header('Content-Type: application/json');
-            echo json_encode($data,true);
+            echo json_encode($data);
             exit();   
             
         }
@@ -124,7 +126,7 @@
             $data = $this->transactionsDataThisMonth();
 
             header('Content-Type: application/json');
-            echo json_encode($data, true);
+            echo json_encode($data);
             exit();
         }
 
