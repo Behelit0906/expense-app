@@ -245,8 +245,11 @@ body{
     cursor: pointer;
 }
 
-
-
+.define-bubget{
+    font-size: 15px;
+    color: #2584D6;
+    text-decoration: none;
+}
 
 .display-inline-block{
     display: inline-block;
