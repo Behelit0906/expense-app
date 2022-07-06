@@ -21,22 +21,24 @@
             $this->render('profile/index',['currentPage' => 'profile']);
         }
 
-        public function userData(){
+        
 
+        public function userData(){
+            
             $data = [
-                'name' => $this->name,
-                'budget' => $this->budget,
-                'email' => $this->email,
-                'photo' => $this->photo
+                'name' => $this->user->name,
+                'budget' => $this->user->budget,
+                'email' => $this->user->email,
+                'photo' => $this->user->photo
             ];
 
-            header('Content-Type: application/json');
-            echo json_encode($data);
-            exit();
+            
+            $this->json_response(200,['user-data' => $data]);
         }
 
         public function updateName(){
-            header('Content-Type: application/json');
+
+            $messages = array ();
 
             if(isset($_POST['name'])){
                 $temp = $this->prepareValidations([
@@ -47,25 +49,24 @@
                 $errorMessages = $validator->validate($temp[0], $temp[1]);
 
                 if(count($errorMessages) > 0){
-                    echo json_encode(["errors" => $errorMessages]);
+                    $messages = $errorMessages;
                 }
-
-                $this->user->name = $_POST['name'];
-                $this->user->update();
-
-                echo json_encode(["success" => "Name updated"]);
-                
-
+                else{
+                    $this->user->name = $_POST['name'];
+                    $this->user->update();
+                    $this->json_response(200, ['Name updated']);
+                }
             }
             else{
-                echo json_encode(['errors' => 'The request does not contain a name field']);       
+                array_push($messages,'The name fied was not found in the request');       
             }
 
-            exit();
+            $this->json_response(400, ['messages' => $messages]);
         }
 
         public function updateBudget(){
-            header('Content-Type: application/json');
+
+            $messages = array ();
 
             if(isset($_POST['budget'])){
                 $temp = $this->prepareValidations([
@@ -76,25 +77,24 @@
                 $errorMessages = $validator->validate($temp[0], $temp[1]);
 
                 if(count($errorMessages) > 0){
-                    echo json_encode(["errors" => $errorMessages]);
+                    $messages = $errorMessages;
                 }
-
-                $this->user->budget = floatval($_POST['budget']);
-                $this->user->update();
-
-                echo json_encode(["success" => "Budget updated"]);
-                
-
+                else{
+                    $this->user->budget = floatval($_POST['budget']);
+                    $this->user->update();
+                    $this->json_response(200,['Budget updated']);
+                }
             }
             else{
-                echo json_encode(['errors' => 'The request does not contain a budget field']);   
+                array_push($messages,'The budget field is required');  
             }
 
-            exit();
+            $this->json_response(400, ['messages' => $messages]);
         }
 
         public function updatePassword(){
-            header('Content-Type: application/json');
+
+            $messages = array ();
 
             if(isset($_POST['password']) and isset($_POST['password_confirmation'])){
                 $temp = $this->prepareValidations([
@@ -105,64 +105,71 @@
                 $errorMessages = $validator->validate($temp[0], $temp[1]);
 
                 if(count($errorMessages) > 0){
-                    echo json_encode(["errors" => $errorMessages]);
-                    
+                    $messages = $errorMessages;    
                 }
-
-                $this->user->password = password_hash($_POST['password'],PASSWORD_BCRYPT);
-                $this->user->update();
-
-                echo json_encode(["success" => "Password updated"]);
-                
-
+                else{
+                    $this->user->password = password_hash($_POST['password'],PASSWORD_BCRYPT);
+                    $this->user->update();
+                    $this->json_response(200,['Password updated']);
+                }
             }
             else{
-                echo json_encode(['errors' => 'The request does not contain a password field']);
-                
+                array_push($messages, 'the password and password_confirmation fields were not found in request');  
             }
 
-            exit();
+            $this->json_response(400, ['messages' => $messages]);
         }
 
         public function updateImage(){
-            
+
             $directory = 'app/storage/profile-pictures/';
-            $errors = [];
+            $messages = array ();
 
-            $imageName = $_FILES['profile-image']['name'];
+            //Valid if the profile-image field is in the request.
+            if(isset($_FILES['profile-image'])){
+                $imageName = $_FILES['profile-image']['name'];
+            
 
-            if(!empty($imageName)){
-                $extensions = ['jpg','jpeg','png'];
-                $imageExt = strtolower(pathinfo($imageName,PATHINFO_EXTENSION));
+                //That it is not empty
+                if(!empty($imageName)){
+                    $extensions = ['jpg','jpeg','png'];
+                    $imageExt = strtolower(pathinfo($imageName,PATHINFO_EXTENSION));
 
-                if(!in_array($imageExt, $extensions)){
-                    array_push($errors,'Invalid image format');
-                }
-
-                $imageSize = $_FILES['profile-image']['size'];
-
-                if($imageSize > 3145728){
-                    array_push($errors,'Image too heavy (maximum 3 MB)');
-                }
-                
-                if(count($errors) == 0){
-                    $file = $directory.md5(date('c').$imageName).'.'.$imageExt;
-                    if(move_uploaded_file($_FILES['profile-image']['tmp_name'], $file)){
-                        echo json_encode(['success' => 'Photo update']);
+                    //Validating extension
+                    if(!in_array($imageExt, $extensions)){
+                        array_push($messages,'Incorrect image format (jpg, jpeg, png)');
                     }
                     else{
-                        echo json_encode(['errors' => ['An error has occurred, try again later']]);
-                    }
+                        $imageSize = $_FILES['profile-image']['size'];
 
+
+                        //Validating maximum size
+                        if($imageSize > 3145728){
+                            array_push($errors,'Image too heavy (maximum 3 MB)');
+                        }
+                        else{
+                            $file = $directory.md5(date('c').$imageName).'.'.$imageExt;
+
+                            //Validating that it is stored
+                            if(move_uploaded_file($_FILES['profile-image']['tmp_name'], $file)){
+                                $this->json_response(200,['Profile image updated']);
+                            }
+                            else{
+                                array_push($messages, 'An unknown error occurred, try again later');
+                            }
+                        }
+                    }
                 }
                 else{
-                    echo json_encode(['errors' => $errors]);
-                }
-
-                exit();
-
+                    array_push($messages,'The profile-image field is empty');
+                }  
             }
+            else{
+                array_push($messages,'The profile-image field was not found in the request');
+            }
+    
             
+            $this->json_response(400, ['messages' => $messages]);
 
         }
 

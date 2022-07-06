@@ -21,8 +21,11 @@
     $app->get('/chartData','app\Controllers\Dashboard@chartData');
     $app->post('/save-expense','app\Controllers\Dashboard@save');
     $app->get('404','app\Controllers\ErrorPage@index');
+    $app->get('/user-data','app\Controllers\Profile@userData');
+    $app->get('/profile','app\Controllers\Profile@index');
 
-    //Middleware
+
+    //Middlewares
     $app->before('GET','/dashboard',function(){
         if(!isset($_SESSION['user_id'])){
             header('Location:http://your-expenses.com/login');
@@ -30,12 +33,29 @@
         }
     });
 
+    $app->before('GET','/profile',function(){
+        if(!isset($_SESSION['user_id'])){
+            header('Location:http://your-expenses.com/login');
+            exit();
+        }
+    });
+
+
+
     $app->before('GET','/data',function(){
         if(!isset($_SESSION['user_id'])){
             header('Location:http://your-expenses.com/404');
             exit();
         }
     });
+
+    $app->before('GET','/user-data',function(){
+        if(!isset($_SESSION['user_id'])){
+            header('Location:http://your-expenses.com/404');
+            exit();
+        }
+    });
+
 
     $app->before('GET','/chartData',function(){
         if(!isset($_SESSION['user_id'])){

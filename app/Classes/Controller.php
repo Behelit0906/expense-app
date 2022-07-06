@@ -52,6 +52,17 @@
             exit();
         }
 
+        protected function json_response($statusCode, $data){
+            header('Content-Type: application/json');
+            $response = array();
+
+            $response['status-code'] = $statusCode;
+            $response['data'] = $data;
+
+            echo json_encode($response);
+            exit();
+        }
+
         protected function checkRole($id){
             $user = new User;
             if($user->find($id)){
