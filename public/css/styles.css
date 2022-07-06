@@ -32,7 +32,7 @@ body{
     background-color: #222D3F;
 }
 
-.navbar-list{
+.list{
     margin: 0;
     padding: 0;
     list-style: none;
@@ -83,7 +83,6 @@ body{
 .font-black{
     color: black;
 }
-
 
 
 .dropdown-menu{
@@ -229,6 +228,10 @@ body{
     font-weight: bold;
 }
 
+.font-weight-500{
+    font-weight: 500;
+}
+
 .opaque-font{
     opacity: 0.8;
 }
@@ -367,6 +370,10 @@ body{
     margin-top: 20px;
 }
 
+.margin-top-15px{
+    margin-top: 15px;
+}
+
 .margin-top-50px{
     margin-top: 50px;
 }
@@ -382,10 +389,78 @@ body{
 }
 
 
+.profile-container{
+    overflow-y: hidden;
+    width: 700px;
+    margin: 3% auto;
+    padding-bottom: 3%;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2)
+}
+
+.profile-header{
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 40px;
+    background-color: #222D3F;
+}
+
+.profile-user-photo{
+    display: inline-block;
+    width: 20%;
+    margin-right: 20px;
+    border-radius: 100%;
+    vertical-align: middle;
+    
+}
+
+.profile-user-name{
+    display: inline-block;
+}
+
+.options-sections{
+    display: inline-block;
+    width: 33%;
+    vertical-align: top;
+}
+
+.forms-section{
+    display: inline-block;
+    width: 45%;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.profile-option{
+    display: block;
+    padding: 6%;
+    color: black;
+    border-bottom: 1px solid  rgba(0,0,0,0.2);
+}
+
+.profile-form{
+    overflow: hidden;
+    margin-bottom: 30px;
+    padding-left: 5px;
+    padding-right: 2px;
+}
+
+.form-user-photo{
+    width: 15%;
+    display: inline-block;
+    vertical-align:bottom;
+}
+
+.file-input{
+    width: 60%;
+    font-size: 90%;
+    font-weight: 300;
+
+}
+
 .add-expense:hover{
     font-weight: 500;
 }
-
 
 
 .input:focus{
@@ -394,6 +469,12 @@ body{
 
 .dropdown-item:hover{
     background-color: #2584D6;
+}
+
+.profile-option:hover{
+    background-color:#288BE1;
+    color: white;
+    
 }
 
 

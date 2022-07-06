@@ -33,7 +33,7 @@
             ];
 
             
-            $this->json_response(200,['user-data' => $data]);
+            $this->json_response(201,['user-data' => $data]);
         }
 
         public function updateName(){
@@ -54,7 +54,7 @@
                 else{
                     $this->user->name = $_POST['name'];
                     $this->user->update();
-                    $this->json_response(200, ['Name updated']);
+                    $this->json_response(201, ['Name updated']);
                 }
             }
             else{
@@ -82,7 +82,7 @@
                 else{
                     $this->user->budget = floatval($_POST['budget']);
                     $this->user->update();
-                    $this->json_response(200,['Budget updated']);
+                    $this->json_response(201,['Budget updated']);
                 }
             }
             else{
@@ -110,7 +110,7 @@
                 else{
                     $this->user->password = password_hash($_POST['password'],PASSWORD_BCRYPT);
                     $this->user->update();
-                    $this->json_response(200,['Password updated']);
+                    $this->json_response(201,['Password updated']);
                 }
             }
             else{
@@ -152,7 +152,7 @@
 
                             //Validating that it is stored
                             if(move_uploaded_file($_FILES['profile-image']['tmp_name'], $file)){
-                                $this->json_response(200,['Profile image updated']);
+                                $this->json_response(201,['Profile image updated']);
                             }
                             else{
                                 array_push($messages, 'An unknown error occurred, try again later');
