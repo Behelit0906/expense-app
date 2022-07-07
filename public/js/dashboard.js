@@ -9,7 +9,7 @@ var options;
 var formulario;
 var photo;
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
     
     photo = document.getElementById('profile-photo');
     elemets = document.getElementsByClassName('username');
@@ -33,7 +33,7 @@ async function loadData(){
         elemets[i].textContent = data['user_name'];
     }
 
-    photo.setAttribute('src','public/profile-pictures (symlink)/'+data['photo']);
+    photo.setAttribute('src',photo.getAttribute('src')+data['photo']);
 
     balance.textContent = formatter.format(data['general_balance']);
 
@@ -60,7 +60,7 @@ async function loadData(){
 }
 
 async function get_data() {  
-    const response =  await fetch('http://your-expenses.com/api/dashboard-data');
+    const response =  await fetch('http://your-expenses.com/data');
     return await response.json();
 }
 
@@ -151,7 +151,7 @@ async function registerExpense(evento){
     
     let data = new FormData(this);
     
-    const response = await fetch('http://your-expenses.com/api/save-expense',{
+    const response = await fetch('http://your-expenses.com/save-expense',{
             method:"POST",
             body:data
     }).then(e => e.json());

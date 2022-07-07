@@ -28,11 +28,12 @@
             $data = [
                 'name' => $this->user->name,
                 'budget' => $this->user->budget,
+                'email' => $this->user->email,
                 'photo' => $this->user->photo
             ];
 
             
-            $this->json_response(200,['user-data' => $data]);
+            $this->json_response(201,['user-data' => $data]);
         }
 
         public function updateName(){
@@ -53,7 +54,7 @@
                 else{
                     $this->user->name = $_POST['name'];
                     $this->user->update();
-                    $this->json_response(201, ['messages' => 'Name updated']);
+                    $this->json_response(201, ['Name updated']);
                 }
             }
             else{
@@ -81,7 +82,7 @@
                 else{
                     $this->user->budget = floatval($_POST['budget']);
                     $this->user->update();
-                    $this->json_response(201,['messages' => 'Budget updated']);
+                    $this->json_response(201,['Budget updated']);
                 }
             }
             else{
@@ -109,17 +110,17 @@
                 else{
                     $this->user->password = password_hash($_POST['password'],PASSWORD_BCRYPT);
                     $this->user->update();
-                    $this->json_response(201,['messages' => 'Password updated']);
+                    $this->json_response(201,['Password updated']);
                 }
             }
             else{
-                array_push($messages, 'The password fields must not be empty');  
+                array_push($messages, 'the password and password_confirmation fields were not found in request');  
             }
 
             $this->json_response(400, ['messages' => $messages]);
         }
 
-        public function updatePhoto(){
+        public function updateImage(){
 
             $directory = 'app/storage/profile-pictures/';
             $messages = array ();
@@ -128,6 +129,7 @@
             if(isset($_FILES['profile-image'])){
                 $imageName = $_FILES['profile-image']['name'];
             
+
                 //That it is not empty
                 if(!empty($imageName)){
                     $extensions = ['jpg','jpeg','png'];
@@ -143,20 +145,14 @@
 
                         //Validating maximum size
                         if($imageSize > 3145728){
-                            array_push($messages,'Image too heavy (maximum 3 MB)');
+                            array_push($errors,'Image too heavy (maximum 3 MB)');
                         }
                         else{
-                            $hashName = md5(date('c').$imageName).'.'.$imageExt;
-                            $file = $directory.$hashName;
+                            $file = $directory.md5(date('c').$imageName).'.'.$imageExt;
 
                             //Validating that it is stored
                             if(move_uploaded_file($_FILES['profile-image']['tmp_name'], $file)){
-                                if(file_exists($directory.$this->user->photo)){
-                                    unlink($directory.$this->user->photo);
-                                }
-                                $this->user->photo = $hashName;
-                                $this->user->update();
-                                $this->json_response(201,['messages' => 'Profile image updated']);
+                                $this->json_response(201,['Profile image updated']);
                             }
                             else{
                                 array_push($messages, 'An unknown error occurred, try again later');
