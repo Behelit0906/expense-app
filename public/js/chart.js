@@ -5,7 +5,7 @@ var transactions = [];
 
 
 async function get_data() {  
-    const response =  await fetch('http://your-expenses.com/chartData').then(e => e.json());
+    const response =  await fetch('http://your-expenses.com/api/chart-data').then(e => e.json());
 
     response.forEach(element => {
         labels.push(element['name']);
@@ -45,7 +45,6 @@ async function get_data() {
     document.getElementById('myChart'),
     config
   );
-
   
 }
 

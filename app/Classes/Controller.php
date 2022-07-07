@@ -57,7 +57,9 @@
             $response = array();
 
             $response['status-code'] = $statusCode;
-            $response['data'] = $data;
+            foreach($data as $key => $value){
+                $response[$key] = $value;
+            }
 
             echo json_encode($response);
             exit();
