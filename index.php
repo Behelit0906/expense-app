@@ -3,6 +3,7 @@
     require_once('vendor/autoload.php');
     require('app/Config/Config.php');
 
+    use app\Models\User;
     use Bramus\Router\Router;
     
     $app = new Router;
