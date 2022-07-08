@@ -167,6 +167,10 @@ body{
     background-color: rgb(127, 248, 56);
 }
 
+.width-100{
+    width: 100%;
+}
+
 
 .dashboard-container{
     position: relative;
@@ -395,7 +399,8 @@ body{
     margin: 3% auto;
     padding-bottom: 3%;
     border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2)
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 .profile-header{
@@ -421,7 +426,9 @@ body{
 .options-sections{
     display: inline-block;
     width: 33%;
+    height: 350px;
     vertical-align: top;
+    border-right: 1px solid  rgba(0,0,0,0.2);
 }
 
 .forms-section{
@@ -456,6 +463,11 @@ body{
     font-size: 90%;
     font-weight: 300;
 
+}
+
+.position-sticky{
+    position: sticky;
+    top: 40px;
 }
 
 .add-expense:hover{

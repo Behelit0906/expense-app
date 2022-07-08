@@ -6,45 +6,45 @@
 {% block content %}
     <article class="profile-container">
         <header class="profile-header">
-            <img class="profile-user-photo" src="public/profile-pictures (symlink)/photo.jpg" alt="">
-            <p class="display-inline-block font-white big-font font-weight-500">Luis Salcedo</p>
+            <img id="profile-header-photo" class="profile-user-photo" src="" alt="">
+            <p class="display-inline-block font-white big-font font-weight-500 username"></p>
         </header>
         
         <aside class="options-sections">
             <ul class="list">
-                <li><a class="link profile-option" href="#form-name">Name and photo</a></li>
-                <li><a class="link profile-option" href="#password-form">Password</a></li>
-                <li><a class="link profile-option" href="#budget-form">Budget</a></li>
+                <li><a class="link profile-option" href="#nameForm">Name and photo</a></li>
+                <li><a class="link profile-option" href="#photoForm">Password</a></li>
+                <li><a class="link profile-option" href="#budgetForm">Budget</a></li>
             </ul>
         </aside>
 
         <section class="forms-section">
             <div class="form-container">
-                <form class="profile-form" action="" method="post" id="form-name">
-                    <p>Nombre</p>
+                <form class="profile-form" action="" method="post" id="nameForm">
+                    <p>Name</p>
                     <input class="input" type="text" name="name" id="name">
                     <button class="background-blue font-white button margin-top-20" type="submit">Update name</button>
                 </form>
 
-                <form class="profile-form" action="" method="post" enctype="multipart/form-data">
+                <form class="profile-form" action="" method="post" enctype="multipart/form-data" id="photoForm">
                     <p>Profile photo</p>
-                    <img class="form-user-photo" src="public/profile-pictures (symlink)/photo.jpg" alt="">
-                    <input class="display-inline-block file-input" type="file" name="profile-photo" id="profile-photo">
+                    <img class="form-user-photo" id="form-user-photo" src="public/profile-pictures (symlink)/" alt="">
+                    <input class="display-inline-block file-input" type="file" name="profile-image">
                     <button class="margin-top-15px background-blue font-white button margin-top-20" type="submit">Update photo</button>
                 </form>
             </div>
 
             <div class="form-container">
-                <form class="profile-form" action="" method="post" id="password-form">
+                <form class="profile-form" action="" method="post" id="passwordForm">
                     <p>Password</p>
-                    <input class="input" type="text" name="password" id="password">
-                    <input class="input" type="text" name="password-confirmation" id="password-confirmation">
+                    <input class="input" type="password" name="password" id="password">
+                    <input class="input" type="password" name="password_confirmation" id="password_confirmation">
                     <button class="background-blue font-white button margin-top-20" type="submit">Update password</button>
                 </form>
             </div>
 
             <div class="form-container">
-                <form class="profile-form" action="" method="post" id="budget-form">
+                <form class="profile-form" action="" method="post" id="budgetForm">
                     <p>Budget</p>
                     <input class="input" type="number" name="budget" id="budget">
                     <button class="background-blue font-white button margin-top-20" type="submit">Update budget</button>
@@ -53,6 +53,6 @@
 
         </section>
     </article>
-    
+    <script src="public/js/profile.js"></script>
     
 {% endblock content %}
