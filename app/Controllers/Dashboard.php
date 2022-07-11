@@ -139,7 +139,7 @@
 
             foreach($categories as $category){
                 $amount = 0;
-                $transactions = $category->getExpensesByMonth(date('m'));
+                $transactions = $category->getExpensesByMonth($this->user->id, date('m'));
 
                 foreach($transactions as $transaction){
                     $amount += $transaction->amount;

@@ -41,10 +41,10 @@
             } 
         }
         
-        public function getExpensesByMonth($month){
+        public function getExpensesByMonth($user_id, $month){
             try {
-                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE category_id = ? AND MONTH(date) = ?');
-                $query->execute([$this->id,$month]);
+                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? AND category_id = ? AND MONTH(date) = ?');
+                $query->execute([$user_id, $this->id,$month]);
 
                 $items = [];
                 if($query->rowCount() > 0 ){
