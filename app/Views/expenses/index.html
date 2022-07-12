@@ -1,0 +1,47 @@
+{% extends "layout/index.html" %}
+
+{% block title %}Expenses{% endblock %}
+{% block background_color %}background-light-blue{% endblock %}
+{% block extracss %}
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+
+<article class="expenses-container">
+    <header class="expenses-header">
+        <p class="font-white big-font font-weight-500">Expense history</p>
+        <label for="category">Filter by</label>
+        <select name="category" id="category-selecter">
+        </select>
+    </header>
+    <div class="table-container">
+        <table class="expenses-table">
+            <thead>
+                <tr class="row">
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                
+                
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer" id="footer">
+        <span class="page" id="previous-page">Previous</span>
+        <span class="page" id="page"></span>
+        <span class="page" id="next-page">Next</span>     
+    </footer>
+    
+</article>
+
+
+
+    
+<script src="public/js/expenses.js"></script>
+{% endblock %}
