@@ -31,7 +31,6 @@
         }
 
         public function save(){
-            header('Content-Type: application/json');
             
             $temp = $this->prepareValidations([
                 'name' => ['required','min:3','max:15'],
@@ -50,8 +49,7 @@
             }
 
             if(count($errorMessages) > 0){
-                echo json_encode(["errors" => $errorMessages]);
-                exit();
+                $this->json_response(400,['messages' => $errorMessages]);
             }
 
             $name = $_POST['name'];
@@ -66,10 +64,7 @@
 
             $this->expense->store();
 
-            
-            echo json_encode(["success" => "Expense recorded"]);
-            exit();
-
+            $this->json_response(201,['messages' => 'Expense recorded']);
         }
 
         public function getData(){
@@ -77,21 +72,36 @@
             $category = new Category;
             $categories = $category->get_all();
 
-            $data = [
+
+            $data['user-data'] =[
                 'user_name' => $this->user->name,
                 'photo' => $this->user->photo,
                 'general_balance' => $general_balance,
                 'budget' => intval($this->user->budget),
                 'residual_budget' => $this->user->budget - $general_balance,
-                'biggets_expense' => $this->biggestExpenseThisMonth(),
-                'categories' => $categories,
-                'category_transactions' => $this->transactionsByCategorythisMonth(),
-                'recent_expenses' => $this->recentExpenses(),
+                'biggets_expense' => $this->biggestExpenseThisMonth()
             ];
 
-            header('Content-Type: application/json');
-            echo json_encode($data);
-            exit();   
+            $data['categories'] = $categories;
+            $data['category_transactions'] = $this->transactionsByCategorythisMonth();
+            $data['recent_expenses'] = $this->recentExpenses();
+
+            // $data = [
+            //     'user_name' => $this->user->name,
+            //     'photo' => $this->user->photo,
+            //     'general_balance' => $general_balance,
+            //     'budget' => intval($this->user->budget),
+            //     'residual_budget' => $this->user->budget - $general_balance,
+            //     'biggets_expense' => $this->biggestExpenseThisMonth(),
+            //     'categories' => $categories,
+            //     'category_transactions' => $this->transactionsByCategorythisMonth(),
+            //     'recent_expenses' => $this->recentExpenses(),
+            // ];
+
+            // header('Content-Type: application/json');
+            // echo json_encode($data);
+            // exit();   
+            $this->json_response('200',$data);
             
         }
 
@@ -108,7 +118,7 @@
         }
 
         private function recentExpenses(){;
-            return $this->expense->limitedSelect($this->user->id, 5); 
+            return $this->expense->limit($this->user->id,0, 5); 
         }
 
         private function biggestExpenseThisMonth(){
