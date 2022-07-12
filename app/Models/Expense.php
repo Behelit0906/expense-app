@@ -84,27 +84,6 @@
             }
         }
 
-        public function limitedSelect($user_id,$amount){
-            try{
-                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? 
-                ORDER BY id DESC LIMIT '.$amount);
-                $query->execute([$user_id]);
-
-                $items = [];
-                if($query->rowCount() > 0){
-                    while($item = $query->fetch(PDO::FETCH_ASSOC)){
-                        $expense = new Expense;
-                        $expense->fill($item);
-                        array_push($items,$expense);
-                    }
-                }
-                return $items;
-
-            }
-            catch(PDOException $e){
-                throw $e;
-            }
-        }
 
         public function getExpensesThisMonth($user_id, $month){
             try {
@@ -131,7 +110,7 @@
         public function limit($user_id, $pointer, $amount){
             try {
                 $limit = 'LIMIT '.$pointer.','.$amount;
-                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? '.$limit);
+                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? ORDER BY id DESC '.$limit);
                 $query->execute([$user_id]);
             
                 $items = [];
@@ -153,7 +132,7 @@
             try {
                 $limit = 'LIMIT '.$pointer.','.$amount;
                 $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? 
-                AND category_id = ? ORDER BY date DESC '.$limit);
+                AND category_id = ? ORDER BY id DESC '.$limit);
                 $query->execute([$user_id, $category_id]);
             
                 $items = [];
