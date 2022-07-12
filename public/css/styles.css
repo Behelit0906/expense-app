@@ -23,7 +23,7 @@ body{
     position: sticky;
     top: 0;
     z-index: 10;
-    min-width: 800px;
+    min-width: 900px;
     min-height: 40px;
     padding-top: 10px; 
     padding-left: 4%;
@@ -467,7 +467,73 @@ body{
 
 .position-sticky{
     position: sticky;
+    z-index: 10;
     top: 40px;
+}
+
+.expenses-container{
+    overflow: hidden;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    
+}
+
+.expenses-header{
+    height: 200px;
+    padding-top: 50px;
+    padding-left: 50px;
+    color: white;
+    background-color: #222D3F;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+
+.table-container{
+    width: 900px;
+    height: 280px;
+    padding: 30px 50px 15px 50px;
+    background-color: white;
+    
+}
+
+.expenses-table{
+    width: 100%;
+    font-size: 85%;
+    border-collapse: collapse;    
+}
+
+.footer{
+    padding-bottom: 15px;
+    text-align: center;
+    background-color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.selected-page{
+    color: white;
+    background-color: #288BE1;
+}
+
+.page{
+    font-size: 85%;
+    border: 1px solid  rgba(0,0,0,0.2);
+    padding: 3px 6px 3px 6px;
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+
+.expenses-table tr{
+    border: 1px solid  rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.expenses-table td, th{
+    padding: 8px;
 }
 
 .add-expense:hover{

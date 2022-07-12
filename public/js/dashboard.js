@@ -1,5 +1,3 @@
-// https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js
-
 var elemets;
 var balance;
 var totalBudget;
@@ -12,7 +10,6 @@ var photo;
 document.addEventListener("DOMContentLoaded", function() {
     
     photo = document.getElementById('profile-photo');
-    elemets = document.getElementsByClassName('username');
     balance = document.getElementById('balance');
     budget = document.getElementById('budget');
     totalBudget = document.getElementById('total-budget');
@@ -27,27 +24,24 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function loadData(){
-    const data = await get_data();
+    const data = await get_data('http://your-expenses.com/api/dashboard-data');
+    let name = data['user-data']['user_name'];
+    let photo = data['user-data']['photo'];
 
-    for(let i = 0; i < elemets.length; i++){
-        elemets[i].textContent = data['user_name'];
-    }
+    nameAndPhotoLoader(name,photo);
 
-    photo.setAttribute('src','public/profile-pictures (symlink)/'+data['photo']);
+    balance.textContent = formatter.format(data['user-data']['general_balance']);
 
-    balance.textContent = formatter.format(data['general_balance']);
-
-    budget.textContent = formatter.format(data['residual_budget']);
-    if(data['residual_budget'] < 0){
+    budget.textContent = formatter.format(data['user-data']['residual_budget']);
+    if(data['user-data']['residual_budget'] < 0){
         budget.setAttribute('style','color:red');
     }
 
-    totalBudget.textContent = `From ${formatter.format(data['budget'])} per month you subtract`;
-    biggetsExpense.textContent = formatter.format(data['biggets_expense']);
+    totalBudget.textContent = `From ${formatter.format(data['user-data']['budget'])} per month you subtract`;
+    biggetsExpense.textContent = formatter.format(data['user-data']['biggets_expense']);
     
     buildCategoryCards(data['category_transactions']);
     loadRecentExpenses(data['recent_expenses']);
-
 
     //Agrego las categorias al input select
     options.innerHTML = '';
@@ -58,16 +52,6 @@ async function loadData(){
         options.appendChild(option);
     }
 }
-
-async function get_data() {  
-    const response =  await fetch('http://your-expenses.com/api/dashboard-data');
-    return await response.json();
-}
-
-const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-});
 
 function buildCategoryCards(data){
     const container = document.getElementById('category-card-container');
@@ -160,56 +144,21 @@ async function registerExpense(evento){
     const div = document.getElementById('modalMessages');
     div.innerHTML = '';
     
+    modal.style.display ="none";
+    body.style.position = "inherit";
+    body.style.height = "auto";
+    body.style.overflow = "visible";
+    this.reset();
 
-    if(response.hasOwnProperty('errors')){
-        div.setAttribute('class','errors top-position');
-
-        for(i = 0; i < response['errors'].length; i++){
-            const p = document.createElement("p");
-            p.setAttribute('class','margin-3');
-            p.textContent = response['errors'][i];
-            div.appendChild(p);
-        }
-            
-    }
-    else if(response.hasOwnProperty('success')){
-        div.setAttribute('class','success top-position');
-        const p = document.createElement("p");
-        p.setAttribute('class','margin-3');
-        p.textContent = response['success'];
-        div.appendChild(p);
+    if(response['status-code'] == 201){
         loadData();
     }
 
-    container.insertAdjacentElement('afterbegin',div);
-
-    
-    
+    showMessages(response['status-code'],response['messages']);
 
 }
 
-function dropDownMenu(){
-    const btn = document.getElementById('dropMenu-btn');
-    
-    const dropMenu = document.getElementById('dropdown-menu');
 
-    btn.onclick = function(){
-        let display = dropMenu.getAttribute('style');
-        
-        if(display == 'display: none;'){
-            dropMenu.setAttribute('style','display: block;');
-        }
-        else{
-            dropMenu.setAttribute('style','display: none;');
-        }
-    }
 
-    window.onclick = function(event){
-        let display = dropMenu.getAttribute('style');
-        if(display == 'display: block;' && event.target != btn){
-            dropMenu.setAttribute('style','display: none;');
-        } 
-    }
 
-}
 

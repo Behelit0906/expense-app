@@ -4,8 +4,8 @@ var colors = [];
 var transactions = [];
 
 
-async function get_data() {  
-    const response =  await fetch('http://your-expenses.com/api/chart-data').then(e => e.json());
+async function draw_chart() {  
+    const response =  await get_data('http://your-expenses.com/api/chart-data');
 
     response.forEach(element => {
         labels.push(element['name']);
@@ -48,7 +48,7 @@ async function get_data() {
   
 }
 
-get_data();
+draw_chart();
 
 
 

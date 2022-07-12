@@ -31,6 +31,7 @@
     $app->post('/api/update-photo', 'app\Controllers\Profile@updatePhoto');
     $app->post('/api/update-budget', 'app\Controllers\Profile@updateBudget');
     $app->post('/api/update-password', 'app\Controllers\Profile@updatePassword');
+    $app->post('/api/delete-expense', 'app\Controllers\Expense@delete');
     $app->get('/api/expenses-data/{pointer}/{amount}', function($pointer, $amount){
         $expense = new Expense;
         $expense->expensesData($pointer, $amount);
