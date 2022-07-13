@@ -26,7 +26,7 @@
         public function userData(){
             
             $data = [
-                'name' => $this->user->name,
+                'user_name' => $this->user->name,
                 'budget' => $this->user->budget,
                 'email' => $this->user->email,
                 'photo' => $this->user->photo

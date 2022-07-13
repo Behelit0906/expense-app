@@ -6,7 +6,7 @@
 {% block content %}
     <article class="profile-container">
         <header class="profile-header">
-            <img id="profile-header-photo" class="profile-user-photo" src="" alt="">
+            <img id="profile-header-photo" class="profile-user-photo picture" src="" alt="">
             <p class="display-inline-block font-white big-font font-weight-500 username"></p>
         </header>
         
@@ -26,9 +26,9 @@
                     <button class="background-blue font-white button margin-top-20" type="submit">Update name</button>
                 </form>
 
-                <form class="profile-form" action="" method="post" enctype="multipart/form-data" id="photoForm">
+                <form class="profile-form picture" action="" method="post" enctype="multipart/form-data" id="photoForm">
                     <p>Profile photo</p>
-                    <img class="form-user-photo" id="form-user-photo" src="public/profile-pictures (symlink)/" alt="">
+                    <img class="form-user-photo picture" id="form-user-photo" src="public/profile-pictures (symlink)/" alt="">
                     <input class="display-inline-block file-input" type="file" name="profile-image">
                     <button class="margin-top-15px background-blue font-white button margin-top-20" type="submit">Update photo</button>
                 </form>

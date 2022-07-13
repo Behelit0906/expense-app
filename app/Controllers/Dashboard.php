@@ -16,8 +16,8 @@
             parent::__construct();
              
             $role = $this->checkRole($_SESSION['user_id']);
-            if($role != 'user'){
-                $this->redirect($_SERVER['HTTP_REFERER']);
+            if($role == 'admin'){
+                $this->redirect('/admin-panel');
             }
             $this->user = new User;
             $this->expense = new Expense;
