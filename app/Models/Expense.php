@@ -163,4 +163,38 @@
             }
         }
 
+        public function higherExpenseOfAll(){
+            try{
+                $query = $this->pdo->prepare('SELECT amount FROM expenses ORDER BY amount DESC LIMIT 1');
+                $query->execute();
+
+                if($query->rowCount() > 0){
+                    $query = $query->fetch(PDO::FETCH_ASSOC);
+                    return intval($query['amount']);
+                }
+                
+                return 0;
+            }
+            catch(PDOException $e){
+                throw $e;
+            }
+        }
+
+        public function minimumExpense(){
+            try{
+                $query = $this->pdo->prepare('SELECT amount FROM expenses ORDER BY amount ASC LIMIT 1');
+                $query->execute();
+
+                if($query->rowCount() > 0){
+                    $query = $query->fetch(PDO::FETCH_ASSOC);
+                    return intval($query['amount']);
+                }
+                
+                return 0;
+            }
+            catch(PDOException $e){
+                throw $e;
+            }
+        }
+
     }
