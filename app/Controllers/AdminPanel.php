@@ -10,18 +10,20 @@
         private $user;
         private $expense;
         private $category;
+        private $role;
 
 
         public function __construct()
         {
             parent::__construct();
 
-            $role = $this->checkRole($_SESSION['user_id']);
-            if($role == 'user'){
+            $this->user = new User;
+            $this->user->find($_SESSION['user_id']);
+            $this->role = $this->user->rol;
+            if($this->role == 'user'){
                 $this->redirect('/dashboard');
             }
 
-            $this->user = new User;
             $this->expense = new Expense;
             $this->category = new Category;
 
@@ -29,11 +31,13 @@
 
 
         public function index(){
-
-            
-
-
-            $this->render('admin/index',['currentPage' => 'dashboard']);
+            $data = $this->prepareData();
+            $data['role'] = $this->role;
+            $data['user-data'] = [
+                'user_name' => $this->user->name,
+                'photo' => $this->user->photo
+            ];
+            $this->render('admin/index',$data);
         }
 
 
@@ -42,50 +46,51 @@
             $categories_data = $this->mostAndLeastUsedCategory();
 
             $data = [
-                'card-data' => [
+                'cards_data' => [
                     [
                         'category' => 'Users',
-                        'statistics' => $this->users(),
-                        'footer' => 'registered users'
+                        'statistic' => $this->users(),
+                        'footer' => 'Registered users'
                     ],
                     [
                         'category' => 'Expenses',
-                        'statistics' => $this->expenses(),
-                        'footer' => 'Expenses'
+                        'statistic' => $this->expenses(),
+                        'footer' => 'Transactions'
                     ],
                     [
                         'category' => 'Expenses',
-                        'statistics' => $this->higherExpense(),
+                        'statistic' => $this->higherExpense(),
                         'footer' => 'Higher expense'
                     ],
                     [
                         'category' => 'Expenses',
-                        'statistics' => $this->minimumExpense(),
+                        'statistic' => $this->minimumExpense(),
                         'footer' => 'Minimum expense'
                     ],
                     [
                         'category' => 'Expenses',
-                        'statistics' => $this->averageExpense(),
+                        'statistic' => $this->averageExpense(),
                         'footer' => 'Average expense'
                     ],
                     [
                         'category' => 'Categories',
-                        'statistics' => $this->categories(),
+                        'statistic' => $this->categories(),
                         'footer' => 'Categories created'
                     ],
                     [
                         'category' => 'Categories',
-                        'statistics' => $categories_data[1],
+                        'statistic' => $categories_data[1],
                         'footer' => 'Most popular category'
                     ],
                     [
                         'category' => 'Categories',
-                        'statistics' => $categories_data[0],
+                        'statistic' => $categories_data[0],
                         'footer' => 'Least popular category'
                     ],
-                ],
-                'currentPage' => 'admin-panel' 
+                ]
             ];
+
+            return $data;
         }
 
         private function users(){
@@ -122,30 +127,27 @@
             $categories = $this->category->get_all();
         
             $accounts = [];
+            $min = 0;
+            $max = 0;
 
             foreach($categories as $category){
-                array_push($accounts,[count($category->get_expenses()) => $category->name]);            
-            }
-
-            $max = 0;
-            $min = 0;
-
-            foreach($accounts as $key => $value){
+                $temp = $category->get_expenses();
                 if($min == 0){
-                    $min = $key;
+                    $min = $temp;
+                    $accounts[0] = $category->name;
                 }
                 
-                if($key > $max){
-                    $max = $value;
+                if($temp > $max){
+                    $max = $temp;
+                    $accounts[1] = $category->name;
                 }
-                elseif($key < $min){
-                    $min = $key;
+                elseif($temp < $min){
+                    $min = $temp;
+                    $accounts[0] = $category->name;
                 }
             }
 
-            return [$accounts[$min], $accounts[$max]];
+            return $accounts;
         }
-
-
 
     }
