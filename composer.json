@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "bramus/router": "dev-master",
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "twig/intl-extra": "3.x-dev"
     },
     "license": "MIT",
     "autoload": {

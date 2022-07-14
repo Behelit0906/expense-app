@@ -4,7 +4,8 @@
     use Twig\Loader\FilesystemLoader;
     use Twig\Environment;
     use Twig\TwigFunction;
-    use app\Models\User;
+    use Twig\Extra\Intl\IntlExtension;
+
 
     class Controller{
 
@@ -13,7 +14,8 @@
         public function __construct()
         {
             $loader = new FilesystemLoader('app/Views/');
-            $this->twig = new Environment($loader);     
+            $this->twig = new Environment($loader);
+            $this->twig->addExtension(new IntlExtension());     
             $function= new TwigFunction('session', function ($name){
                 return isset($_SESSION[$name]) ? $_SESSION[$name] : null;
             });
