@@ -1,0 +1,30 @@
+{% extends "layout/index.html" %}
+
+{% block title %}Admin panel{% endblock %}
+{% block background_color %}background-light-blue{% endblock %}
+
+{% block content %}
+    
+    <div class="admin-panel-container">
+        <div class="admin-card-container">
+            
+            {% for card in cards_data %}
+
+                
+                {% include('includes/adminCard.html') with {card} %}
+                
+                
+            {% endfor %}
+            
+        </div>
+
+        <aside class="aside">
+            <h2>Operations</h2>
+            <div class="add-expense" id="btnModal">Add a new category</div>
+        </aside>
+    </div>
+    {{ include('includes/categoryForm.html') }}
+
+    <script src="public/js/admin-panel.js"></script>
+
+{% endblock %}

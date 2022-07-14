@@ -1,8 +1,11 @@
 <nav class="navbar">
     <ul class="list">
         <li class="navbar-element"><a class="link font-white" href="/dashboard">Home</a></li>
-        {% if currentPage == 'dashboard' or currentPage == 'expense' or currentPage == 'admin-panel' or currentPage == 'profile' or currentPage == 'expenses'%} 
+        {% if role == 'user' %} 
             <li class="navbar-element"><a class="link font-white" href="/expenses">Expenses</a></li>
+        {% else %}
+            <li class="navbar-element"><a class="link font-white" href="/categories">Categories</a></li>
+        {% endif %}
             <li class="navbar-element profile-button position-relative">
                 <img class="profile-picture picture" id="profile-photo" alt="">
                 <span class="username"></span>
@@ -14,6 +17,5 @@
                     <a class="link font-black dropdown-item" href="/logout">Log Out</a>
                 </div>
             </li>
-        {% endif %}
     </ul>  
 </nav>

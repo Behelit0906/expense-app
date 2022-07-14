@@ -8,12 +8,17 @@
 
     class SignIn extends Controller{
 
+        private $user;
+
         public function __construct()
         {
             parent::__construct();
 
+            $this->user = new User;
             if(isset($_SESSION['user_id'])){
-                $role = $this->checkRole($_SESSION['user_id']);
+                $this->user->find($_SESSION['user_id']);
+                $role = $this->user->rol;
+
                 if($_SERVER['REQUEST_URI'] != '/logout'){
                     if($role == 'user'){
                         $this->redirect('/dashboard');
@@ -21,10 +26,10 @@
                     elseif($role == 'admin'){
                         $this->redirect('/admin-panel');
                     }
-                }   
-            }
-
+                }     
+            } 
         }
+
     
         public function index(){
             $this->render('login/signIn',['currentPage' => 'login']);   
@@ -52,21 +57,20 @@
             $email = $_POST['email'];
             $pass = $_POST['password'];
 
-            $user = new User;
+            
 
-            if(!$user->findByEmail($email) or !password_verify($pass, $user->password)){
+            if(!$this->user->findByEmail($email) or !password_verify($pass, $this->user->password)){
                 $_SESSION['errors'] = ['Incorrect email or password'];
                 $this->redirect('/login');
             }
 
-            $_SESSION['user_id'] = $user->id;
-            if($user->rol == 'user'){
+            $_SESSION['user_id'] = $this->user->id;
+            if($this->user->rol == 'user'){
                 $this->redirect('/dashboard');
                 
             }
-            elseif($user->rol == 'admin'){
+            elseif($this->user->rol == 'admin'){
                 $this->redirect('/admin-panel');
-            
             }
 
         }

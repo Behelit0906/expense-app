@@ -77,6 +77,7 @@ async function sendForm(event){
     }).then(e => e.json());
 
     showMessages(response['status-code'], response['messages']);
+    loadData();
    
 }
 

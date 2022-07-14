@@ -17,9 +17,9 @@
     $app->post('/signup','app\Controllers\SignUp@signUp');
     $app->post('/signin','app\Controllers\SignIn@signIn');
     $app->get('/dashboard','app\Controllers\Dashboard@index');
-    $app->get('404','app\Controllers\ErrorPage@index');
     $app->get('/profile','app\Controllers\Profile@index');
     $app->get('/expenses','app\Controllers\Expense@index');
+    $app->get('/admin-panel','app\Controllers\AdminPanel@index');
 
     
     //api routes
@@ -40,6 +40,8 @@
         $expense = new Expense;
         $expense->filteredExpensesData($category_id, $pointer, $amount);
     });
+    $app->get('/api/admin-panel-data','app\Controllers\AdminPanel@userData');
+
 
 
     //Middlewares
@@ -51,6 +53,13 @@
     });
    
     $app->before('GET','/dashboard',function(){
+        if(!isset($_SESSION['user_id'])){
+            header('Location:http://your-expenses.com/login');
+            exit();
+        }
+    });
+
+    $app->before('GET','/admin-panel',function(){
         if(!isset($_SESSION['user_id'])){
             header('Location:http://your-expenses.com/login');
             exit();

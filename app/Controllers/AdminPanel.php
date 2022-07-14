@@ -33,11 +33,17 @@
         public function index(){
             $data = $this->prepareData();
             $data['role'] = $this->role;
+            $this->render('admin/index',$data);
+        }
+
+
+        public function userData(){
             $data['user-data'] = [
                 'user_name' => $this->user->name,
-                'photo' => $this->user->photo
+                'photo' => $this->user->photo,
             ];
-            $this->render('admin/index',$data);
+
+            $this->json_response(200, $data);
         }
 
 
@@ -116,7 +122,7 @@
             foreach($expenses as $expense){
                 $average += $expense->amount;
             }
-            return $average;
+            return $average / count($expenses);
         }
 
         private function categories(){
