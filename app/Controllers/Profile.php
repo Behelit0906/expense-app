@@ -14,11 +14,12 @@
 
             $this->user = new User;
             $this->user->find($_SESSION['user_id']);
+
         }
 
 
         public function index(){
-            $this->render('profile/index',['currentPage' => 'profile']);
+            $this->render('profile/index',['role' => $this->user->rol]);
         }
 
         

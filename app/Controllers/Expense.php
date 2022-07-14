@@ -9,17 +9,24 @@
 
         private $user;
         private $expense;
+        private $role;
 
         public function __construct()
         {
             parent::__construct();
             $this->user = new User;
             $this->user->find($_SESSION['user_id']);
+            $this->role = $this->user->rol;
+
+            if($this->role == 'admin'){
+                $this->redirect('/admin-panel');
+            }
+
             $this->expense = new expenseModel;
         }
 
         public function index(){
-            $this->render('expenses/index',['currentPage' => 'expenses']);
+            $this->render('expenses/index',['role' => $this->role]);
         }
 
 

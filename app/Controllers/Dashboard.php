@@ -10,23 +10,25 @@
 
         private $user;
         private $expense;
+        private $role;
 
         public function __construct()
         {
             parent::__construct();
-             
-            $role = $this->checkRole($_SESSION['user_id']);
-            if($role == 'admin'){
+
+            $this->user = new User;
+            $this->user->find($_SESSION['user_id']);
+            $this->role = $this->user->rol;
+            if($this->role == 'admin'){
                 $this->redirect('/admin-panel');
             }
-            $this->user = new User;
+            
             $this->expense = new Expense;
-            $this->user->find($_SESSION['user_id']);
         }
 
         public function index(){
             
-            $this->render('dashboard/index',['currentPage' => 'dashboard']);
+            $this->render('dashboard/index',['role' => $this->role]);
 
         }
 

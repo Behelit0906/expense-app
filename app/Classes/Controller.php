@@ -27,8 +27,7 @@
         }
 
         protected function render($view, $data = []){
-            $view.='.html';
-            $data['URL'] = URL;     
+            $view.='.html'; 
             echo $this->twig->render($view,$data); 
         }
 
@@ -66,11 +65,4 @@
             exit();
         }
 
-        protected function checkRole($id){
-            $user = new User;
-            if($user->find($id)){
-                return $user->rol;
-            }
-            return false;    
-        }
     }
