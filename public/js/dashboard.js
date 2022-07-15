@@ -140,18 +140,12 @@ async function registerExpense(evento){
             body:data
     }).then(e => e.json());
 
-    const container = document.getElementById('modal-background');
-    const div = document.getElementById('modalMessages');
-    div.innerHTML = '';
-    
-    modal.style.display ="none";
-    body.style.position = "inherit";
-    body.style.height = "auto";
-    body.style.overflow = "visible";
+    closeModal();
     this.reset();
 
     if(response['status-code'] == 201){
         loadData();
+        draw_chart();
     }
 
     showMessages(response['status-code'],response['messages']);

@@ -1,6 +1,8 @@
 <div class="admin-card">
     <div class="small-font card-category">{{card.category}}</div>
-    <div class="admin-card-statistic">
+    <div class="admin-card-statistic" {% if card.footer == 'Categories created' %}
+    id="categoriesCreated"
+    {% endif %} >
         {% if card.footer == 'Higher expense' or card.footer == 'Minimum expense' or card.footer == 'Average expense' %}
             {{card.statistic|format_currency('USD')}}
         {% else %}

@@ -13,15 +13,15 @@ if(document.getElementById("btnModal")){
     }
 
     span.onclick = function() {
-
-        const div = document.getElementById('modalMessages');
-        div.innerHTML = '';
-
-        modal.style.display = "none";
-
-        body.style.position = "inherit";
-        body.style.height = "auto";
-        body.style.overflow = "visible";
+        closeModal();
     }
 
 }
+
+function closeModal(){
+    modal.style.display ="none";
+    body.style.position = "inherit";
+    body.style.height = "auto";
+    body.style.overflow = "visible";
+}
+
