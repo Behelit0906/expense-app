@@ -61,4 +61,17 @@
             }
         }
 
+
+        public function findByName($name){
+            try {
+                $query = $this->pdo->prepare('SELECT * FROM categories WHERE name = ?');
+                $query->execute([$name]);
+
+                return $query->rowCount();    
+            }
+            catch (PDOException $e) {
+                throw $e;
+            }
+        }
+
     }
