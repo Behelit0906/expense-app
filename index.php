@@ -41,6 +41,8 @@
         $expense->filteredExpensesData($category_id, $pointer, $amount);
     });
     $app->get('/api/admin-panel-data','app\Controllers\AdminPanel@userData');
+    $app->post('/api/create-category','app\Controllers\Category@save');
+
 
 
 
