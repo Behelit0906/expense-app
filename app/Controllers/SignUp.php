@@ -6,12 +6,17 @@
 
     class SignUp extends Controller{
 
+        private $user;
+
+
         public function __construct()
         {
             parent::__construct();
 
             if(isset($_SESSION['user_id'])){
-                $role = $this->checkRole($_SESSION['user_id']);
+                $this->user = new User;
+                $this->user->find($_SESSION['user_id']);
+                $role = $this->user->rol;
                 if($role == 'user'){
                     $this->redirect('/dashboard');
                 }
