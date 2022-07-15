@@ -137,6 +137,14 @@ use Exception;
                 return true;
             }
         }
+
+        private function color($string, $fieldName){
+            $regex = "/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/";
+            if(!preg_match($regex, $string)){
+                array_push($this->errorMessages, 'Invalid hexadecimal color code');
+                return true;
+            }
+        }
         
     }
 
