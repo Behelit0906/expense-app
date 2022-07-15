@@ -1,11 +1,11 @@
-
-var labels = [];
-var colors = [];
-var transactions = [];
-
+let myChart = null;
 
 async function draw_chart() {  
     const response =  await get_data('http://your-expenses.com/api/chart-data');
+
+    const labels = [];
+    const colors = [];
+    const transactions = [];
 
     response.forEach(element => {
         labels.push(element['name']);
@@ -40,11 +40,14 @@ async function draw_chart() {
         },   
     };
 
-    
-  const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
+    if(myChart != null){
+        myChart.destroy();
+    }
+
+    myChart = new Chart(
+        document.getElementById('myChart').getContext("2d"),
+        config
+    );
   
 }
 
