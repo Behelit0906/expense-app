@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 async function loadData(){
-    const data = await get_data('http://your-expenses.com/api/profile-data');
+    const data = await get_data(domain + '/api/profile-data');
 
     if(data['status-code'] == 200){
 
@@ -46,23 +46,23 @@ async function sendForm(event){
     let formName = this.getAttribute('id');
     
     let data = new FormData(this);
-    let url = '';
+    let url = domain;
 
     switch(true){
         case formName == 'nameForm':
-            url = 'http://your-expenses.com/api/update-name';
+            url += '/api/update-name';
             break;
 
         case formName == 'photoForm':
-            url = 'http://your-expenses.com/api/update-photo';
+            url += '/api/update-photo';
             break;
         
         case formName == 'passwordForm':
-            url = 'http://your-expenses.com/api/update-password';
+            url += '/api/update-password';
             break;
 
         case formName == 'budgetForm':
-            url = 'http://your-expenses.com/api/update-budget';
+            url += '/api/update-budget';
             break;
     }
 

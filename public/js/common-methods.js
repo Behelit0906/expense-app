@@ -1,3 +1,5 @@
+const domain = 'http://your-expenses.com';
+
 
 async function get_data(url) {  
     const response =  await fetch(url);
@@ -44,7 +46,7 @@ function nameAndPhotoLoader(username, photo){
     
 
     for(let i = 0; i < photoFields.length; i++){
-        photoFields[i].setAttribute('src','public/profile-pictures (symlink)/'+ photo);
+        photoFields[i].setAttribute('src',domain+'/public/profile-pictures (symlink)/'+ photo);
     }
 }
 

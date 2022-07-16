@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function() {
 
     document.getElementById('categoryForm').addEventListener('submit', sendForm);
-    const data = await get_data('http://your-expenses.com/api/admin-panel-data');
+    const data = await get_data(domain + '/api/admin-panel-data');
     const name = data['user-data']['user_name'];
     const photo = data['user-data']['photo'];
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 async function sendForm(event){
     event.preventDefault();
     let data = new FormData(this);
-    let url = 'http://your-expenses.com/api/create-category';
+    let url = domain+'/api/create-category';
 
     const response = await fetch(url,{
         method:"POST",

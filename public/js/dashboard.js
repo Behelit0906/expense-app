@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function loadData(){
-    const data = await get_data('http://your-expenses.com/api/dashboard-data');
+    const data = await get_data(domain + '/api/dashboard-data');
     let name = data['user-data']['user_name'];
     let photo = data['user-data']['photo'];
 
@@ -135,7 +135,7 @@ async function registerExpense(evento){
     
     let data = new FormData(this);
     
-    const response = await fetch('http://your-expenses.com/api/save-expense',{
+    const response = await fetch(domain + '/api/save-expense',{
             method:"POST",
             body:data
     }).then(e => e.json());

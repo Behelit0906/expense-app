@@ -1,7 +1,7 @@
 let myChart = null;
 
 async function draw_chart() {  
-    const response =  await get_data('http://your-expenses.com/api/chart-data');
+    const response =  await get_data(domain + '/api/chart-data');
 
     const labels = [];
     const colors = [];

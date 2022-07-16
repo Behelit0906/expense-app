@@ -3,8 +3,6 @@ const amount = 5;
 var table_body;
 var category_selecter;
 var categories;
-var nameField;
-var navbarPhoto;
 var footer;
 var totalPages;
 var pageSpan;
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async function(){
         }   
     })
 
-    const data = await get_data(`http://your-expenses.com/api/expenses-data/${page}/${amount}/`);
+    const data = await get_data(domain + `/api/expenses-data/${page}/${amount}/`);
     let name = data['user-data']['user_name'];
     let photo = data['user-data']['photo'];
     nameAndPhotoLoader(name, photo);
@@ -53,14 +51,14 @@ async function loadData(){
 
     let url = '';
     if(category_id == 'null'){
-        url = `http://your-expenses.com/api/expenses-data/${page}/${amount}/`;
+        url = `/api/expenses-data/${page}/${amount}/`;
     }
     
     if(category_id != 'null'){
-        url = `http://your-expenses.com/api/expenses-filter/${category_id}/${page}/${amount}/`;      
+        url = `/api/expenses-filter/${category_id}/${page}/${amount}/`;      
     } 
     
-    const data = await get_data(url);
+    const data = await get_data(domain + url);
 
     page = 0;
     table_body.innerHTML = '';
@@ -74,13 +72,24 @@ function buildRows(data){
     table_body.innerHTML = '';
     data['expenses'].forEach(element => {
         const row = document.createElement('tr');
-        row.setAttribute('class', 'row');
 
         const name = document.createElement('td');
         name.textContent = element['name'];
 
         const category = document.createElement('td');
-        category.textContent = categories[element['category_id']];
+
+        if(element['category_id'] != null){
+            data['categories'].forEach(e => {
+                if (element['category_id'] == e['id']){
+                    category.textContent = e['name'];
+                    
+                }
+            });
+        }
+        else{
+            category.textContent = 'No category';
+        }
+
 
         const date = document.createElement('td');
         date.textContent = element['date'];
@@ -126,11 +135,13 @@ function selecterOptions(){
     void_option.textContent = '---';
     category_selecter.appendChild(void_option);
 
-    Object.keys(categories).forEach(element => {
+
+    categories.forEach(element => {
         const option = document.createElement('option');
-        option.setAttribute('value', element);
-        option.textContent = categories[element];
+        option.setAttribute('value', element['id']);
+        option.textContent = element['name'];
         category_selecter.appendChild(option);
+
     });
 
     category_selecter.addEventListener('change', loadData);
@@ -142,7 +153,7 @@ async function sendForm(event){
     event.preventDefault();
    
     let data = new FormData(this);
-    let url = 'http://your-expenses.com/api/delete-expense';
+    let url = domain + '/api/delete-expense';
     
     const response = await fetch(url,{
             method:"POST",
@@ -166,14 +177,14 @@ function setPageNumber(){
 async function change_page(){
 
     let category_id = document.getElementById('category-selecter').value;
-    let url = '';
+    let url = domain;
     let pointer = page * amount;
 
     if(category_id != 'null'){
-        url = `http://your-expenses.com/api/expenses-filter/${category_id}/${pointer}/${amount}/`;
+        url += `/api/expenses-filter/${category_id}/${pointer}/${amount}/`;
     }
     else{
-        url = `http://your-expenses.com/api/expenses-data/${pointer}/${amount}/`
+        url += `/api/expenses-data/${pointer}/${amount}/`
     }
 
     const data = await get_data(url);
