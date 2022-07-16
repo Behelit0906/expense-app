@@ -110,7 +110,7 @@
         public function limit($user_id, $pointer, $amount){
             try {
                 $limit = 'LIMIT '.$pointer.','.$amount;
-                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? ORDER BY id DESC '.$limit);
+                $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? ORDER BY DATE DESC '.$limit);
                 $query->execute([$user_id]);
             
                 $items = [];
@@ -132,7 +132,7 @@
             try {
                 $limit = 'LIMIT '.$pointer.','.$amount;
                 $query = $this->pdo->prepare('SELECT * FROM expenses WHERE user_id = ? 
-                AND category_id = ? ORDER BY id DESC '.$limit);
+                AND category_id = ? ORDER BY DATE DESC '.$limit);
                 $query->execute([$user_id, $category_id]);
             
                 $items = [];
