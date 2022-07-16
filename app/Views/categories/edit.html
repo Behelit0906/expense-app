@@ -1,0 +1,18 @@
+{% extends "layout/index.html" %}
+
+{% block title %}Update category{% endblock %}
+{% block background_color %}background-light-blue{% endblock %}
+
+{% block content %}
+
+    <article>
+        <form action="http://your-expenses.com/update-category" method="post">
+            <input type="hidden" name="id" value="{{category.id}}">
+            <input type="text" name="name" id="name" value="{{category.name}}">
+            <input type="color" name="color" id="color" value="{{category.color}}">
+
+            <button type="submit">Update</button>
+        </form>
+    </article>
+
+{% endblock %}

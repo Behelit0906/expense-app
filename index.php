@@ -5,6 +5,7 @@
 
     use Bramus\Router\Router;
     use app\Controllers\Expense;
+    use app\Controllers\Category;
      
     $app = new Router;
     
@@ -20,6 +21,9 @@
     $app->get('/profile','app\Controllers\Profile@index');
     $app->get('/expenses','app\Controllers\Expense@index');
     $app->get('/admin-panel','app\Controllers\AdminPanel@index');
+    $app->get('/categories','app\Controllers\Category@index');
+    $app->get('/categories/edit','app\Controllers\Category@edit');
+    $app->post('/update-category','app\Controllers\Category@update');
 
     
     //api routes
@@ -42,6 +46,12 @@
     });
     $app->get('/api/admin-panel-data','app\Controllers\AdminPanel@userData');
     $app->post('/api/create-category','app\Controllers\Category@save');
+    $app->get('/api/categories-data/{pointer}/{amount}', function($pointer, $amount){
+        $expense = new Category;
+        $expense->categoriesData($pointer, $amount);
+    });
+    $app->post('/api/delete-category', 'app\Controllers\Category@delete');
+    
 
 
 

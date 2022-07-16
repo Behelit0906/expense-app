@@ -74,4 +74,25 @@
             }
         }
 
+        public function limit($pointer, $amount){
+            try {
+                $limit = 'LIMIT '.$pointer.','.$amount;
+                $query = $this->pdo->prepare('SELECT * FROM categories ORDER BY id DESC '.$limit);
+                $query->execute();
+            
+                $items = [];
+                if($query->rowCount() > 0 ){
+                    while ($item = $query->fetch(PDO::FETCH_ASSOC)){
+                        $category = new Category;
+                        $category->fill($item);
+                        array_push($items,$category);
+                    }
+                }
+                return $items;    
+            }
+            catch (PDOException $e) {
+                throw $e;
+            }
+        }
+
     }
