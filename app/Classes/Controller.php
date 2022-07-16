@@ -24,8 +24,14 @@
                     unset($_SESSION[$name]);
                 }
             });
+
+            $domain = new TwigFunction('domain', function(){
+                return URL;
+            });
+
             $this->twig->addFunction($function);
             $this->twig->addFunction($cleanFunction);
+            $this->twig->addFunction($domain);
         }
 
         protected function render($view, $data = []){

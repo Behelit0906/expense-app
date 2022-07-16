@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="public/css/normalize.css">
-        <link rel="stylesheet" href="public/css/styles.css">
+        <link rel="stylesheet" href="{{domain()}}/public/css/normalize.css">
+        <link rel="stylesheet" href="{{domain()}}/public/css/styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
         <title>{% block title %}{% endblock %}</title>
-        <script src="public/js/common-methods.js"></script>
+        <script src="{{domain()}}/public/js/common-methods.js"></script>
     </head>
     <body class="{% block background_color %}{% endblock %}">
         {{ include('includes/navbar.html') }}
