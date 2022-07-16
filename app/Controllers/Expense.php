@@ -4,12 +4,14 @@
     use app\Models\Expense as expenseModel;
     use app\Models\User;
     use app\Classes\Validator;
+    use app\Models\Category;
 
     class Expense extends Controller{
 
         private $user;
         private $expense;
         private $role;
+        private $category;
 
         public function __construct()
         {
@@ -23,6 +25,7 @@
             }
 
             $this->expense = new expenseModel;
+            $this->category = new Category;
         }
 
         public function index(){
@@ -49,14 +52,17 @@
 
         private function categories(){
             $expenses = $this->user->get_expenses();
+            $categories = $this->category->get_all();
             
-            $categories = [];
-            foreach($expenses as $expense){
-                $category = $expense->belongToCategory();
-                if(!array_key_exists($category->id, $categories)){
-                    $categories[$category->id] = $category->name; 
-                }
-            }
+            // $categories = [];
+            // foreach($expenses as $expense){
+            //     $category = $expense->belongToCategory();
+            //     if($category){
+            //         if(!array_key_exists($category->id, $categories)){
+            //             $categories[$category->id] = $category->name; 
+            //         }
+            //     } 
+            // }
 
             return $categories;
         }
@@ -65,6 +71,7 @@
             $data = [];
             $expenses = $this->expense->limitAndFiltered($this->user->id, $category_id, $pointer, $amount);
             $data['expenses'] = $expenses;
+            $data['categories'] = [$this->category->find($category_id)];
             $data['total'] = $this->expense->totalExpensesByCategory($this->user->id, $category_id);
 
             $this->json_response('200', $data);
