@@ -85,7 +85,7 @@ use Exception;
 
         private function numeric($string,$fieldName){
             if(!is_numeric($string)){
-                array_push($this->errorMessages,'The data in the '.$fieldName.' field must be numeric'); 
+                array_push($this->errorMessages,'The '.$fieldName.' field must be numeric'); 
                 return true;   
             }
         }
@@ -93,14 +93,14 @@ use Exception;
         private function max($limit, $string, $fieldName){
             
             if(strlen($string) >  $limit){
-                array_push($this->errorMessages,'The '.$fieldName.' must have a maximum of '.$limit.' characters');
+                array_push($this->errorMessages,'The '.$fieldName.' field must have a maximum of '.$limit.' characters');
                 return true;
             }
         }
 
         private function min($limit, $string,$fieldName){
             if(strlen($string) < $limit){
-                array_push($this->errorMessages,'The '.$fieldName.' must have a minimum of '.$limit.' characters');
+                array_push($this->errorMessages,'The '.$fieldName.' field must have a minimum of '.$limit.' characters');
                 return true;
             }
         }
