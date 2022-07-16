@@ -59,7 +59,7 @@ async function loadData(){
     } 
     
     const data = await get_data(domain + url);
-
+    console.log(data);
     page = 0;
     table_body.innerHTML = '';
     buildRows(data);
